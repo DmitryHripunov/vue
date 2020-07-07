@@ -5,6 +5,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
@@ -12,6 +13,7 @@ export default [
     image: '/img/toothbrush.jpg',
     image2x: '/img/toothbrush@2x.jpg 2x',
     imgWebp: '/img/toothbrush@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Смартфон Xiaomi Mi Mix 3 6/128GB',
@@ -33,6 +35,7 @@ export default [
     image: '/img/phone-2.jpg',
     image2x: '/img/phone-2@2x.jpg 2x',
     imgWebp: '/img/phone-2@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Смартфон Xiaomi Redmi 6/128GB',
@@ -47,6 +50,7 @@ export default [
     image: '/img/bicycle.jpg',
     image2x: '/img/bicycle@2x.jpg 2x',
     imgWebp: '/img/bicycle@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Гироскутер Razor Hovertrax 2.0',
@@ -75,6 +79,7 @@ export default [
     image: '/img/airpods.jpg',
     image2x: '/img/airpods@2x.jpg 2x',
     imgWebp: '/img/airpods@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Наушники Sony',
@@ -82,6 +87,7 @@ export default [
     image: '/img/headphone.jpg',
     image2x: '/img/headphone@2x.jpg 2x',
     imgWebp: '/img/headphone@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Радионяня Motorola MBP16',
@@ -89,6 +95,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Радионяня Motorola MBP16',
@@ -96,6 +103,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     title: 'Радионяня Motorola MBP16',
@@ -103,5 +111,6 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
+    colors: ['#73B6EA', '#8BE000', '#222222'],
   },
 ];
