@@ -1,5 +1,7 @@
 export default [
   {
+    id: 1,
+    categoryId: 4,
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: '/img/radio.jpg',
@@ -8,6 +10,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 2,
+    categoryId: 1,
     title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
     price: 5660,
     image: '/img/toothbrush.jpg',
@@ -16,6 +20,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 3,
+    categoryId: 2,
     title: 'Смартфон Xiaomi Mi Mix 3 6/128GB',
     price: 21790,
     image: '/img/phone.jpg',
@@ -23,6 +29,8 @@ export default [
     imgWebp: '/img/phone-1@2x.webp 2x',
   },
   {
+    id: 4,
+    categoryId: 3,
     title: 'Электроскейт Razor Cruiser',
     price: 3690,
     image: '/img/board.jpg',
@@ -30,6 +38,8 @@ export default [
     imgWebp: '/img/board@2x.webp 2x',
   },
   {
+    id: 5,
+    categoryId: 2,
     title: 'Смартфон Xiaomi Mi A3 4/64GB Android One',
     price: 14960,
     image: '/img/phone-2.jpg',
@@ -38,6 +48,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 6,
+    categoryId: 2,
     title: 'Смартфон Xiaomi Redmi 6/128GB',
     price: 8960,
     image: '/img/phone-3.jpg',
@@ -45,6 +57,8 @@ export default [
     imgWebp: '/img/phone-3@2x.webp 2x',
   },
   {
+    id: 7,
+    categoryId: 3,
     title: 'Электрический дрифт-карт Razor Crazy Cart',
     price: 39990,
     image: '/img/bicycle.jpg',
@@ -53,6 +67,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 8,
+    categoryId: 3,
     title: 'Гироскутер Razor Hovertrax 2.0',
     price: 34990,
     image: '/img/wheels.jpg',
@@ -60,6 +76,8 @@ export default [
     imgWebp: '/img/wheels@2x.webp 2x',
   },
   {
+    id: 9,
+    categoryId: 3,
     title: 'Детский трюковой самокат Razor Grom',
     price: 9990,
     image: '/img/scooter.jpg',
@@ -67,6 +85,8 @@ export default [
     imgWebp: '/img/scooter@2x.webp 2x',
   },
   {
+    id: 10,
+    categoryId: 3,
     title: 'Роллерсёрф Razor RipStik Air Pro',
     price: 6990,
     image: '/img/ripstick.jpg',
@@ -74,6 +94,8 @@ export default [
     imgWebp: '/img/ripstick@2x.webp 2x',
   },
   {
+    id: 11,
+    categoryId: 5,
     title: 'Наушники AirPods с беспроводным зарядным футляром',
     price: 16560,
     image: '/img/airpods.jpg',
@@ -82,6 +104,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 12,
+    categoryId: 5,
     title: 'Наушники Sony',
     price: 30690,
     image: '/img/headphone.jpg',
@@ -90,6 +114,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 13,
+    categoryId: 4,
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: '/img/radio.jpg',
@@ -98,6 +124,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 14,
+    categoryId: 4,
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: '/img/radio.jpg',
@@ -106,6 +134,8 @@ export default [
     colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
+    id: 15,
+    categoryId: 4,
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: '/img/radio.jpg',
