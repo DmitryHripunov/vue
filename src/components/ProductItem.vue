@@ -20,12 +20,12 @@
       {{ product.price }} ₽
     </span>
 
-    <ul class="colors colors--black" v-if="product.colors">
-      <li class="colors__item"  v-for="(color, index) in product.colors" :key="index">
+    <ul class="colors colors--black" v-if="product.variants">
+      <li class="colors__item"  v-for="variant in product.variants" :key="variant.variantId">
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio"
-          :value="color" v-model="iscolor">
-          <span class="colors__value" :style="{'background-color': color }">
+          :value="variant.variantColor" v-model="currentColor" @click="chooseColor()">
+          <span class="colors__value" :style="{'background-color':variant.variantColor }">
           </span>
         </label>
       </li>
@@ -37,11 +37,27 @@
 <script>
 
 export default {
+  props: ['product'],
   data() {
     return {
-      iscolor: '#73B6EA',
+      currentColor: '#73B6EA',
     };
   },
-  props: ['product'],
+  // computed: {
+  //   currentImg() {
+  //     return this.product.image;
+  //   },
+  //   variantImg() {
+  //     return this.product.variants.map((img) => img.variantImage);
+  //   },
+  //   variantColor() {
+  //     return this.product.variants.map((color) => color.variantColor);
+  //   },
+  // },
+  // methods: {
+  //   chooseColor() {
+  //     this.$emit('currentColor', this.variantImg === this.currentColor);
+  //   },
+  // },
 };
 </script>

@@ -1,5 +1,30 @@
 export default [
   {
+    id: 16,
+    categoryId: 2,
+    title: 'Смартфон SONY 6/128GB',
+    price: 23690,
+    image: '/img/a1.jpg',
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
+    variants: [
+      {
+        variantId: 2234,
+        variantColor: '#73B6EA',
+        variantImage: '/img/a1.jpg',
+      },
+      {
+        variantId: 2235,
+        variantColor: '#8BE000',
+        variantImage: '/img/a2.jpg',
+      },
+      {
+        variantId: 2236,
+        variantColor: '#222222',
+        variantImage: '/img/a3.jpg',
+      },
+    ],
+  },
+  {
     id: 1,
     categoryId: 4,
     title: 'Радионяня Motorola MBP16',
@@ -7,7 +32,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 2,
@@ -17,7 +42,7 @@ export default [
     image: '/img/toothbrush.jpg',
     image2x: '/img/toothbrush@2x.jpg 2x',
     imgWebp: '/img/toothbrush@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 3,
@@ -45,7 +70,7 @@ export default [
     image: '/img/phone-2.jpg',
     image2x: '/img/phone-2@2x.jpg 2x',
     imgWebp: '/img/phone-2@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 6,
@@ -64,7 +89,7 @@ export default [
     image: '/img/bicycle.jpg',
     image2x: '/img/bicycle@2x.jpg 2x',
     imgWebp: '/img/bicycle@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 8,
@@ -101,7 +126,7 @@ export default [
     image: '/img/airpods.jpg',
     image2x: '/img/airpods@2x.jpg 2x',
     imgWebp: '/img/airpods@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 12,
@@ -111,7 +136,7 @@ export default [
     image: '/img/headphone.jpg',
     image2x: '/img/headphone@2x.jpg 2x',
     imgWebp: '/img/headphone@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 13,
@@ -121,7 +146,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 14,
@@ -131,7 +156,7 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
   {
     id: 15,
@@ -141,6 +166,6 @@ export default [
     image: '/img/radio.jpg',
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
-    colors: ['#73B6EA', '#8BE000', '#222222'],
+    // colors: ['#73B6EA', '#8BE000', '#222222'],
   },
 ];

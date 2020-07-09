@@ -30,117 +30,30 @@
         </label>
       </fieldset>
 
-      <fieldset class="form__block">
+      <fieldset class="form__block" v-if="colors">
         <legend class="form__legend">Цвет</legend>
         <ul class="colors">
-          <li class="colors__item">
+          <li class="colors__item" v-for="(asideColor, index) in colors" :key="index">
             <label class="colors__label">
               <input class="colors__radio sr-only" type="radio"
-                name="color" value="#73B6EA" checked="">
-              <span class="colors__value" style="background-color: #73B6EA;">
+               :value="asideColor" v-model="checkedColor">
+              <span class="colors__value" :style="{'background-color': asideColor }">
               </span>
             </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#FFBE15">
-              <span class="colors__value" style="background-color: #FFBE15;">
-              </span>
-            </label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#939393">
-              <span class="colors__value" style="background-color: #939393;">
-            </span></label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#8BE000">
-              <span class="colors__value" style="background-color: #8BE000;">
-            </span></label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#FF6B00">
-              <span class="colors__value" style="background-color: #FF6B00;">
-            </span></label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#FFF">
-              <span class="colors__value" style="background-color: #FFF;">
-            </span></label>
-          </li>
-          <li class="colors__item">
-            <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio" name="color" value="#000">
-              <span class="colors__value" style="background-color: #000;">
-            </span></label>
           </li>
         </ul>
       </fieldset>
 
-      <fieldset class="form__block">
+      <fieldset class="form__block" v-if="checkList">
         <legend class="form__legend">Объемб в ГБ</legend>
         <ul class="check-list">
-          <li class="check-list__item">
+          <li class="check-list__item" v-for="(checkList, index) in checkList" :key="index">
             <label class="check-list__label">
               <input class="check-list__check sr-only" type="checkbox"
-                name="volume" value="8" checked="">
+                 :value="checkList" v-model="checkedList">
               <span class="check-list__desc">
-                8
-                <span>(313)</span>
-              </span>
-            </label>
-          </li>
-          <li class="check-list__item">
-            <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-                name="volume" value="16">
-              <span class="check-list__desc">
-                16
-                <span>(461)</span>
-              </span>
-            </label>
-          </li>
-          <li class="check-list__item">
-            <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-              name="volume" value="32">
-              <span class="check-list__desc">
-                32
-                <span>(313)</span>
-              </span>
-            </label>
-          </li>
-          <li class="check-list__item">
-            <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-              name="volume" value="64">
-              <span class="check-list__desc">
-                64
-                <span>(313)</span>
-              </span>
-            </label>
-          </li>
-          <li class="check-list__item">
-            <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-              name="volume" value="128">
-              <span class="check-list__desc">
-                128
-                <span>(313)</span>
-              </span>
-            </label>
-          </li>
-          <li class="check-list__item">
-            <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-              name="volume" value="264">
-              <span class="check-list__desc">
-                264
-                <span>(313)</span>
+                {{ checkList }}
+                <!-- <span>(313)</span> -->
               </span>
             </label>
           </li>
@@ -160,9 +73,15 @@
 <script>
 import categories from '../data/categories';
 
+const COLORS = ['#73B6EA', '#FFBE15', '#939393', '#8BE000', '#FF6B00', '#FFF', '#000'];
+const CHECK_LIST = [8, 16, 32, 64, 128, 264];
+
 export default {
   data() {
     return {
+      checkedList: [128],
+      checkedColor: '#73B6EA',
+
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
@@ -172,6 +91,12 @@ export default {
   computed: {
     categories() {
       return categories;
+    },
+    colors() {
+      return COLORS;
+    },
+    checkList() {
+      return CHECK_LIST;
     },
   },
   watch: {
