@@ -32,6 +32,7 @@
 </template>
 
 <script>
+
 export default {
   model: {
     prop: 'page',

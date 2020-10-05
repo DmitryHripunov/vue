@@ -7,12 +7,11 @@
         <legend class="form__legend">Цена</legend>
         <label class="form__label form__label--price">
           <input class="form__input" type="text" name="min-price"
-           v-model.number="currentPriceFrom">
+           v-model.number="currentPriceFrom" />
           <span class="form__value">От</span>
         </label>
         <label class="form__label form__label--price">
-          <input class="form__input" type="text" name="max-price"
-           v-model.number="currentPriceTo">
+          <input class="form__input" type="text" name="max-price" v-model.number="currentPriceTo" />
           <span class="form__value">До</span>
         </label>
       </fieldset>
@@ -20,12 +19,18 @@
       <fieldset class="form__block">
         <legend class="form__legend">Категория</legend>
         <label class="form__label form__label--select">
-          <select class="form__select" type="text" name="category"
-           v-model.number="currentCategoryId">
+          <select
+            class="form__select"
+            type="text"
+            name="category"
+            v-model.number="currentCategoryId"
+          >
             <option value="0">Все категории</option>
-            <option :value="category.id" v-for="category in categories"
-            :key="category.id">{{ category.title }}
-            </option>
+            <option
+              :value="category.id"
+              v-for="category in categories"
+              :key="category.id"
+            >{{ category.title }}</option>
           </select>
         </label>
       </fieldset>
@@ -35,24 +40,31 @@
         <ul class="colors">
           <li class="colors__item" v-for="(asideColor, index) in colors" :key="index">
             <label class="colors__label">
-              <input class="colors__radio sr-only" type="radio"
-               :value="asideColor" v-model="checkedColor">
-              <span class="colors__value" :style="{'background-color': asideColor }">
-              </span>
+              <input
+                class="colors__radio sr-only"
+                type="radio"
+                :value="asideColor"
+                v-model="currentCheckedColor"
+              />
+              <span class="colors__value" :style="{'background-color': asideColor }"></span>
             </label>
           </li>
         </ul>
       </fieldset>
 
-      <fieldset class="form__block" v-if="checkList">
+      <fieldset class="form__block" v-if="volumeList">
         <legend class="form__legend">Объемб в ГБ</legend>
         <ul class="check-list">
-          <li class="check-list__item" v-for="(checkList, index) in checkList" :key="index">
+          <li class="check-list__item" v-for="(check, index) in volumeList" :key="index">
             <label class="check-list__label">
-              <input class="check-list__check sr-only" type="checkbox"
-                 :value="checkList" v-model="checkedList">
+              <input
+                class="check-list__check sr-only"
+                type="checkbox"
+                :value="check"
+                v-model="currentCheckedVolume"
+              />
               <span class="check-list__desc">
-                {{ checkList }}
+                {{ check }}
                 <!-- <span>(313)</span> -->
               </span>
             </label>
@@ -60,12 +72,12 @@
         </ul>
       </fieldset>
 
-      <button class="filter__submit button button--primery" type="submit">
-        Применить
-      </button>
-      <button class="filter__reset button button--second" type="button" @click.prevent="reset">
-        Сбросить
-      </button>
+      <button class="filter__submit button button--primery" type="submit">Применить</button>
+      <button
+        class="filter__reset button button--second"
+        type="button"
+        @click.prevent="reset"
+      >Сбросить</button>
     </form>
   </aside>
 </template>>
@@ -73,21 +85,29 @@
 <script>
 import categories from '../data/categories';
 
-const COLORS = ['#73B6EA', '#FFBE15', '#939393', '#8BE000', '#FF6B00', '#FFF', '#000'];
-const CHECK_LIST = [8, 16, 32, 64, 128, 264];
+const COLORS = [
+  '#73B6EA',
+  '#FFBE15',
+  '#939393',
+  '#8BE000',
+  '#FF6B00',
+  '#FFF',
+  '#000',
+];
+const VOLUME_LIST = [8, 16, 32, 64, 128, 264];
 
 export default {
   data() {
     return {
-      checkedList: [128],
-      checkedColor: '#73B6EA',
+      currentCheckedVolume: [],
+      currentCheckedColor: 0,
 
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'volumeChecked'],
   computed: {
     categories() {
       return categories;
@@ -95,8 +115,8 @@ export default {
     colors() {
       return COLORS;
     },
-    checkList() {
-      return CHECK_LIST;
+    volumeList() {
+      return VOLUME_LIST;
     },
   },
   watch: {
@@ -109,17 +129,27 @@ export default {
     categoryId(value) {
       this.currentCategoryId = value;
     },
+    colorChecked(value) {
+      this.currentCheckedColor = value;
+    },
+    volumeChecked(value) {
+      this.currentCheckedVolume = value;
+    },
   },
   methods: {
     submit() {
       this.$emit('update:priceFrom', this.currentPriceFrom);
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
+      this.$emit('update:colorChecked', this.currentCheckedColor);
+      this.$emit('update:volumeChecked', this.currentCheckedVolume);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
+      this.$emit('update:colorChecked', 0);
+      this.$emit('update:volumeChecked', []);
     },
   },
 };

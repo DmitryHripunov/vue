@@ -20,12 +20,12 @@
       {{ product.price }} ₽
     </span>
 
-    <ul class="colors colors--black" v-if="product.variants">
-      <li class="colors__item"  v-for="variant in product.variants" :key="variant.variantId">
+    <ul class="colors colors--black" v-if="product.colors">
+      <li class="colors__item"  v-for="(color, index) in product.colors" :key="index">
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio"
-          :value="variant.variantColor" v-model="currentColor" @click="chooseColor()">
-          <span class="colors__value" :style="{'background-color':variant.variantColor }">
+          :value="color" v-model="currentColor" >
+          <span class="colors__value" :style="{'background-color':color }">
           </span>
         </label>
       </li>
