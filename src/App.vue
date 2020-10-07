@@ -68,11 +68,7 @@ export default {
 
       if (this.filterCheckedColor) {
         filteredProducts = filteredProducts.filter(
-<<<<<<< HEAD
           (product) => product.colors && product.colors.includes(this.filterCheckedColor),
-=======
-          (product) => this.filterCheckedColor.includes(product.colors),
->>>>>>> 2e79bff611f0664e933c79def8aeef067ccd2896
         );
       }
 
