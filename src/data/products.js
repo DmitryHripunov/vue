@@ -86,6 +86,7 @@ export default [
     image2x: '/img/phone-3@2x.jpg 2x',
     imgWebp: '/img/phone-3@2x.webp 2x',
     volume: [8, 264],
+    colors: ['#FF6B00'],
   },
   {
     id: 7,
@@ -166,7 +167,7 @@ export default [
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
     colors: ['#73B6EA'],
-    volume: [8, 16, 32],
+    volume: ['8', '16', '32'],
   },
   {
     id: 15,

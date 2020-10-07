@@ -68,16 +68,15 @@ export default {
 
       if (this.filterCheckedColor) {
         filteredProducts = filteredProducts.filter(
-          (product) => this.filterCheckedColor.includes(product.colors
-          ),
+          (product) => product.colors && product.colors.includes(this.filterCheckedColor),
         );
       }
 
-      // if (this.filterCheckedVolume) {
-      //   filteredProducts = filteredProducts.filter(
-      //     (product) => this.filterCheckedVolume.includes(product.volume),
-      //   );
-      // }
+      if (this.filterCheckedVolume) {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.volume === this.filterCheckedVolume,
+        );
+      }
 
       return filteredProducts;
     },

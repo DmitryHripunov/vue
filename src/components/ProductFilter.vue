@@ -60,7 +60,7 @@
               <input
                 class="check-list__check sr-only"
                 type="checkbox"
-                :value="check"
+                :value="currentCheckedVolume"
                 v-model="currentCheckedVolume"
               />
               <span class="check-list__desc">
@@ -91,7 +91,6 @@ const COLORS = [
   '#939393',
   '#8BE000',
   '#FF6B00',
-  '#FFF',
   '#000',
 ];
 const VOLUME_LIST = [8, 16, 32, 64, 128, 264];
@@ -99,7 +98,7 @@ const VOLUME_LIST = [8, 16, 32, 64, 128, 264];
 export default {
   data() {
     return {
-      currentCheckedVolume: [],
+      currentCheckedVolume: 0,
       currentCheckedColor: 0,
 
       currentPriceFrom: 0,
@@ -149,7 +148,7 @@ export default {
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
       this.$emit('update:colorChecked', 0);
-      this.$emit('update:volumeChecked', []);
+      this.$emit('update:volumeChecked', 0);
     },
   },
 };
