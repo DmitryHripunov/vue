@@ -52,20 +52,19 @@
         </ul>
       </fieldset>
 
-      <fieldset class="form__block" v-if="volumeList">
+      <fieldset class="form__block" v-if="memoryList">
         <legend class="form__legend">Объемб в ГБ</legend>
         <ul class="check-list">
-          <li class="check-list__item" v-for="(check, index) in volumeList" :key="index">
+          <li class="check-list__item" v-for="(check, index) in memoryList" :key="index">
             <label class="check-list__label">
               <input
                 class="check-list__check sr-only"
                 type="checkbox"
-                :value="currentCheckedVolume"
-                v-model="currentCheckedVolume"
+                :value="check"
+                v-model="currentCheckedMemory"
               />
               <span class="check-list__desc">
                 {{ check }}
-                <!-- <span>(313)</span> -->
               </span>
             </label>
           </li>
@@ -93,12 +92,12 @@ const COLORS = [
   '#FF6B00',
   '#000',
 ];
-const VOLUME_LIST = [8, 16, 32, 64, 128, 264];
+const MEMORY_LIST = [8, 16, 32, 64, 128, 264];
 
 export default {
   data() {
     return {
-      currentCheckedVolume: 0,
+      currentCheckedMemory: [],
       currentCheckedColor: 0,
 
       currentPriceFrom: 0,
@@ -106,7 +105,7 @@ export default {
       currentCategoryId: 0,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'volumeChecked'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'memoryChecked'],
   computed: {
     categories() {
       return categories;
@@ -114,8 +113,8 @@ export default {
     colors() {
       return COLORS;
     },
-    volumeList() {
-      return VOLUME_LIST;
+    memoryList() {
+      return MEMORY_LIST;
     },
   },
   watch: {
@@ -131,8 +130,8 @@ export default {
     colorChecked(value) {
       this.currentCheckedColor = value;
     },
-    volumeChecked(value) {
-      this.currentCheckedVolume = value;
+    memoryChecked(value) {
+      this.currentCheckedMemory = value;
     },
   },
   methods: {
@@ -141,14 +140,14 @@ export default {
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
       this.$emit('update:colorChecked', this.currentCheckedColor);
-      this.$emit('update:volumeChecked', this.currentCheckedVolume);
+      this.$emit('update:memoryChecked', this.currentCheckedMemory);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
       this.$emit('update:colorChecked', 0);
-      this.$emit('update:volumeChecked', 0);
+      this.$emit('update:memoryChecked', []);
     },
   },
 };

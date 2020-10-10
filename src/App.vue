@@ -11,7 +11,7 @@
         :price-to.sync="filterPriceTo"
         :category-id.sync="filterCategoryId"
         :color-checked.sync="filterCheckedColor"
-        :volume-checked.sync="filterCheckedVolume"
+        :memory-checked.sync="filterCheckedMemory"
       />
 
       <section class="catalog">
@@ -38,7 +38,7 @@ export default {
       filterPriceTo: 0,
       filterCategoryId: 0,
       filterCheckedColor: 0,
-      filterCheckedVolume: 0,
+      filterCheckedMemory: 0,
 
       page: 1,
       productPerPage: 6,
@@ -72,9 +72,11 @@ export default {
         );
       }
 
-      if (this.filterCheckedVolume) {
+      if (this.filterCheckedMemory.length) {
         filteredProducts = filteredProducts.filter(
-          (product) => product.volume === this.filterCheckedVolume,
+          (product) => product.memory && product.memory.includes(
+            this.filterCheckedMemory,
+          ),
         );
       }
 

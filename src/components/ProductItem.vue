@@ -40,7 +40,7 @@ export default {
   props: ['product'],
   data() {
     return {
-      currentColor: '#73B6EA',
+      currentColor: 0,
     };
   },
   // computed: {

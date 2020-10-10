@@ -6,7 +6,7 @@ export default [
     price: 23690,
     image: '/img/a1.jpg',
     colors: ['#73B6EA', '#FFBE15', '#939393', '#000'],
-    volume: [8, 16, 32, 64, 128, 264],
+    // memory: [8, 16, 32, 64, 128, 264],
     // variants: [
     //   {
     //     variantId: 2234,
@@ -34,7 +34,7 @@ export default [
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
     colors: ['#73B6EA', '#8BE000'],
-    volume: [8, 264],
+    // memory: [8, 264],
   },
   {
     id: 2,
@@ -54,7 +54,7 @@ export default [
     image: '/img/phone.jpg',
     image2x: '/img/phone-1@2x.jpg 2x',
     imgWebp: '/img/phone-1@2x.webp 2x',
-    volume: [64, 128, 264],
+    // memory: [64, 128, 264],
   },
   {
     id: 4,
@@ -64,7 +64,7 @@ export default [
     image: '/img/board.jpg',
     image2x: '/img/board@2x.jpg 2x',
     imgWebp: '/img/board@2x.webp 2x',
-    colors: ['#FFBE15', '#939393', '#000'],
+    // colors: ['#FFBE15', '#939393', '#000'],
   },
   {
     id: 5,
@@ -75,7 +75,7 @@ export default [
     image2x: '/img/phone-2@2x.jpg 2x',
     imgWebp: '/img/phone-2@2x.webp 2x',
     colors: ['#73B6EA', '#8BE000'],
-    volume: [8, 16, 32, 64, 128, 264],
+    // memory: [8, 16, 32, 64, 128, 264],
   },
   {
     id: 6,
@@ -85,7 +85,7 @@ export default [
     image: '/img/phone-3.jpg',
     image2x: '/img/phone-3@2x.jpg 2x',
     imgWebp: '/img/phone-3@2x.webp 2x',
-    volume: [8, 264],
+    // memory: [8, 264],
     colors: ['#FF6B00'],
   },
   {
@@ -135,7 +135,7 @@ export default [
     image2x: '/img/airpods@2x.jpg 2x',
     imgWebp: '/img/airpods@2x.webp 2x',
     colors: ['#73B6EA', '#8BE000'],
-    volume: [264],
+    // memory: [264],
   },
   {
     id: 12,
@@ -146,7 +146,7 @@ export default [
     image2x: '/img/headphone@2x.jpg 2x',
     imgWebp: '/img/headphone@2x.webp 2x',
     colors: ['#73B6EA', '#8BE000'],
-    volume: [8, 16, 32, 64, 128, 264],
+    memory: [8, 16, 32, 64, 128, 264],
   },
   {
     id: 13,
@@ -167,7 +167,7 @@ export default [
     image2x: '/img/radio@2x.jpg 2x',
     imgWebp: '/img/radio@2x.webp 2x',
     colors: ['#73B6EA'],
-    volume: ['8', '16', '32'],
+    memory: [8, 16, 32],
   },
   {
     id: 15,
