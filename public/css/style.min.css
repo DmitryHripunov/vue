@@ -196,3 +196,4 @@ a{text-decoration:none}
 .footer__social{margin-left:auto;-ms-flex-item-align:start;align-self:flex-start}
 .footer__copyright{grid-row:3/4;align-self:flex-end;font-family:PressStart;font-size:12px;color:#fff;text-transform:uppercase}
 .footer__data{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,auto);grid-gap:10px;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;grid-column:2/3;grid-row:3/4}
+.pagination__link--display-none{visibility: hidden}

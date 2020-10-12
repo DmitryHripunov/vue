@@ -11,7 +11,7 @@
         :price-to.sync="filterPriceTo"
         :category-id.sync="filterCategoryId"
         :color-checked.sync="filterCheckedColor"
-        :memory-checked.sync="filterCheckedMemory"
+        :memory-sizes-checked.sync="filterCheckedMemorySizes"
       />
 
       <section class="catalog">
@@ -38,10 +38,10 @@ export default {
       filterPriceTo: 0,
       filterCategoryId: 0,
       filterCheckedColor: 0,
-      filterCheckedMemory: 0,
+      filterCheckedMemorySizes: 0,
 
       page: 1,
-      productPerPage: 6,
+      productPerPage: 3,
     };
   },
   computed: {
@@ -72,10 +72,10 @@ export default {
         );
       }
 
-      if (this.filterCheckedMemory.length) {
+      if (this.filterCheckedMemorySizes.length) {
         filteredProducts = filteredProducts.filter(
-          (product) => product.memory && product.memory.includes(
-            this.filterCheckedMemory,
+          (product) => product.memorySizes && product.memorySizes.some(
+            (m) => this.filterCheckedMemorySizes.includes(m),
           ),
         );
       }

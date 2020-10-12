@@ -52,16 +52,16 @@
         </ul>
       </fieldset>
 
-      <fieldset class="form__block" v-if="memoryList">
+      <fieldset class="form__block" v-if="memorySizesList">
         <legend class="form__legend">Объемб в ГБ</legend>
         <ul class="check-list">
-          <li class="check-list__item" v-for="(check, index) in memoryList" :key="index">
+          <li class="check-list__item" v-for="(check, index) in memorySizesList" :key="index">
             <label class="check-list__label">
               <input
                 class="check-list__check sr-only"
                 type="checkbox"
                 :value="check"
-                v-model="currentCheckedMemory"
+                v-model="currentCheckedMemorySizes"
               />
               <span class="check-list__desc">
                 {{ check }}
@@ -92,12 +92,12 @@ const COLORS = [
   '#FF6B00',
   '#000',
 ];
-const MEMORY_LIST = [8, 16, 32, 64, 128, 264];
+const MEMORY_SIZES = [8, 16, 32, 64, 128, 264];
 
 export default {
   data() {
     return {
-      currentCheckedMemory: [],
+      currentCheckedMemorySizes: [],
       currentCheckedColor: 0,
 
       currentPriceFrom: 0,
@@ -105,7 +105,7 @@ export default {
       currentCategoryId: 0,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'memoryChecked'],
+  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'memorySizesChecked'],
   computed: {
     categories() {
       return categories;
@@ -113,8 +113,8 @@ export default {
     colors() {
       return COLORS;
     },
-    memoryList() {
-      return MEMORY_LIST;
+    memorySizesList() {
+      return MEMORY_SIZES;
     },
   },
   watch: {
@@ -130,8 +130,8 @@ export default {
     colorChecked(value) {
       this.currentCheckedColor = value;
     },
-    memoryChecked(value) {
-      this.currentCheckedMemory = value;
+    memorySizesChecked(value) {
+      this.currentCheckedMemorySizes = value;
     },
   },
   methods: {
@@ -140,14 +140,14 @@ export default {
       this.$emit('update:priceTo', this.currentPriceTo);
       this.$emit('update:categoryId', this.currentCategoryId);
       this.$emit('update:colorChecked', this.currentCheckedColor);
-      this.$emit('update:memoryChecked', this.currentCheckedMemory);
+      this.$emit('update:memorySizesChecked', this.currentCheckedMemorySizes);
     },
     reset() {
       this.$emit('update:priceFrom', 0);
       this.$emit('update:priceTo', 0);
       this.$emit('update:categoryId', 0);
       this.$emit('update:colorChecked', 0);
-      this.$emit('update:memoryChecked', []);
+      this.$emit('update:memorySizesChecked', []);
     },
   },
 };

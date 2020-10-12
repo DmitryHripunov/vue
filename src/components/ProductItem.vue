@@ -1,12 +1,9 @@
 <template>
   <li class="catalog__item">
-    <a class="catalog__pic" href="#">
+    <a class="catalog__pic" href="#" >
       <picture>
-        <source type="image/webp"
-          :srcset="product.imgWebp">
-          <img :src="product.image"
-          :srcset="product.image2x"
-          :alt="product.title">
+        <img :src="variantImg[0]" :switchingColors.sync="checkedImg"
+             :alt="product.title">
       </picture>
     </a>
 
@@ -24,7 +21,7 @@
       <li class="colors__item"  v-for="(color, index) in product.colors" :key="index">
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio"
-          :value="color" v-model="currentColor" >
+          :value="color" v-model="currentCheckedColor" @change="switchingColors">
           <span class="colors__value" :style="{'background-color':color }">
           </span>
         </label>
@@ -36,28 +33,39 @@
 
 <script>
 
+import products from '../data/products';
+
 export default {
-  props: ['product'],
+  props: ['product', 'checkedImg'],
   data() {
     return {
-      currentColor: 0,
+      currentCheckedColor: 0,
+      currentImg: 0,
     };
   },
-  // computed: {
-  //   currentImg() {
-  //     return this.product.image;
-  //   },
-  //   variantImg() {
-  //     return this.product.variants.map((img) => img.variantImage);
-  //   },
-  //   variantColor() {
-  //     return this.product.variants.map((color) => color.variantColor);
-  //   },
-  // },
-  // methods: {
-  //   chooseColor() {
-  //     this.$emit('currentColor', this.variantImg === this.currentColor);
-  //   },
-  // },
+  computed: {
+    products() {
+      return products;
+    },
+    variantImg() {
+      return this.products && this.product.image;
+    },
+    // choseImg() {
+    //   return this.variantImg[1];
+    // },
+  },
+
+  watch: {
+    currentCheckedColor(value) {
+      this.currentCheckedColor = value;
+    },
+  },
+  methods: {
+    switchingColors() {
+      return this.$emit(
+        'update:switchingColors', this.currentCheckedColor, this.variantImg[1],
+      );
+    },
+  },
 };
 </script>

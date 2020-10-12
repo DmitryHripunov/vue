@@ -2,7 +2,7 @@
   <ul class="catalog__pagination pagination">
     <li class="pagination__item">
       <a class="pagination__link pagination__link--arrow"
-       :class="{'pagination__link--disabled': page === 1 }"
+         :class="{'pagination__link--disabled': page === 1}"
          href="#" aria-label="Предыдущая страница"
          @click.prevent="paginate(page - 1)">
         <svg width="8" height="14" fill="currentColor">
@@ -11,18 +11,20 @@
       </a>
     </li>
 
-    <li class="pagination__item" v-for="pageNumber in pages" :key="pageNumber" >
-      <a href="#" class="pagination__link" :class="{'pagination__link--current':
-       pageNumber === page }" @click.prevent="paginate(pageNumber)">
+    <li class="pagination__item" v-for="pageNumber in croppedPagesList" :key="pageNumber">
+      <a href="#" class="pagination__link"
+         :class="{'pagination__link--current': pageNumber === page,
+          'pagination__link--display-none': pageNumber === ''}"
+         @click.prevent="paginate(pageNumber)">
         {{ pageNumber }}
       </a>
     </li>
 
     <li class="pagination__item">
       <a class="pagination__link pagination__link--arrow"
-      :class="{'pagination__link--disabled': page >= pages}"
-        href="#" aria-label="Следующая страница"
-        @click.prevent="paginate(page + 1)">
+         :class="{'pagination__link--disabled': page >= pages}"
+         href="#" aria-label="Следующая страница"
+         @click.prevent="paginate(page + 1)">
         <svg width="8" height="14" fill="currentColor">
           <use xlink:href="#icon-arrow-right"></use>
         </svg>
@@ -33,6 +35,8 @@
 
 <script>
 
+const MAX_PAGES = 5;
+
 export default {
   model: {
     prop: 'page',
@@ -40,8 +44,23 @@ export default {
   },
   props: ['page', 'count', 'perPage'],
   computed: {
+    maxPages() {
+      return MAX_PAGES;
+    },
     pages() {
       return Math.ceil(this.count / this.perPage);
+    },
+    croppedPagesList() {
+      if (this.maxPages < this.pages) {
+        return [
+          this.page > 1 ? 1 : '',
+          this.page === 1 ? this.page : this.page,
+          this.page < this.maxPages ? this.page + 1 : this.page - 1,
+          '...',
+          this.page > this.maxPages ? '' : this.pages,
+        ];
+      }
+      return this.pages;
     },
   },
   methods: {
