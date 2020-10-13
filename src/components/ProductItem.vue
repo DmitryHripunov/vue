@@ -2,7 +2,7 @@
   <li class="catalog__item">
     <a class="catalog__pic" href="#" >
       <picture>
-        <img :src="variantImg[0]" :switchingColors.sync="checkedImg"
+        <img :src="product.image"
              :alt="product.title">
       </picture>
     </a>
@@ -33,27 +33,16 @@
 
 <script>
 
-import products from '../data/products';
-
 export default {
-  props: ['product', 'checkedImg'],
+
+  props: ['product'],
+
   data() {
     return {
       currentCheckedColor: 0,
-      currentImg: 0,
     };
   },
-  computed: {
-    products() {
-      return products;
-    },
-    variantImg() {
-      return this.products && this.product.image;
-    },
-    // choseImg() {
-    //   return this.variantImg[1];
-    // },
-  },
+  computed: {},
 
   watch: {
     currentCheckedColor(value) {
@@ -63,7 +52,7 @@ export default {
   methods: {
     switchingColors() {
       return this.$emit(
-        'update:switchingColors', this.currentCheckedColor, this.variantImg[1],
+        'update:switchingColors', this.currentCheckedColor,
       );
     },
   },

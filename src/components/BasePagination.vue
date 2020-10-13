@@ -13,8 +13,11 @@
 
     <li class="pagination__item" v-for="pageNumber in croppedPagesList" :key="pageNumber">
       <a href="#" class="pagination__link"
-         :class="{'pagination__link--current': pageNumber === page,
-          'pagination__link--display-none': pageNumber === ''}"
+         :class="{
+          'pagination__link--current': pageNumber === page,
+          'pagination__link--display-none': pageNumber === '',
+          'pagination__link--default': pageNumber === '...',
+          }"
          @click.prevent="paginate(pageNumber)">
         {{ pageNumber }}
       </a>
@@ -56,8 +59,8 @@ export default {
           this.page > 1 ? 1 : '',
           this.page === 1 ? this.page : this.page,
           this.page < this.maxPages ? this.page + 1 : this.page - 1,
-          '...',
-          this.page > this.maxPages ? '' : this.pages,
+          this.page <= this.maxPages ? '...' : '...',
+          this.page > this.maxPages ? this.page - (this.maxPages - 1) : this.pages,
         ];
       }
       return this.pages;

@@ -4,26 +4,9 @@ export default [
     categoryId: 2,
     title: 'Смартфон SONY 6/128GB',
     price: 23690,
-    image: ['/img/a1.jpg', '/img/a2.jpg', '/img/a3.jpg'],
+    image: ['/img/a1.jpg'],
     colors: ['#73B6EA', '#FFBE15', '#939393'],
     memorySizes: [8, 16, 32, 64, 128, 264],
-    // variants: [
-    //   {
-    //     variantId: 2234,
-    //     variantColor: '#73B6EA',
-    //     variantImage: '/img/a1.jpg',
-    //   },
-    //   {
-    //     variantId: 2235,
-    //     variantColor: '#8BE000',
-    //     variantImage: '/img/a2.jpg',
-    //   },
-    //   {
-    //     variantId: 2236,
-    //     variantColor: '#222222',
-    //     variantImage: '/img/a3.jpg',
-    //   },
-    // ],
   },
   {
     id: 1,
@@ -31,7 +14,7 @@ export default [
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: ['/img/radio.jpg'],
-    // colors: ['#73B6EA', '#8BE000'],
+    colors: ['#73B6EA', '#8BE000'],
     memorySizes: [8, 264],
   },
   {
@@ -40,7 +23,7 @@ export default [
     title: 'Ультразвуковая зубная щётка Playbrush Smart Sonic',
     price: 5660,
     image: ['/img/toothbrush.jpg'],
-    // colors: ['#73B6EA', '#FFBE15', '#000'],
+    colors: ['#73B6EA', '#FFBE15', '#000'],
   },
   {
     id: 3,
@@ -56,7 +39,7 @@ export default [
     title: 'Электроскейт Razor Cruiser',
     price: 3690,
     image: ['/img/board.jpg'],
-    // colors: ['#FFBE15', '#939393', '#000'],
+    colors: ['#FFBE15', '#939393', '#000'],
   },
   {
     id: 5,
@@ -64,7 +47,7 @@ export default [
     title: 'Смартфон Xiaomi Mi A3 4/64GB Android One',
     price: 14960,
     image: ['/img/phone-2.jpg'],
-    // colors: ['#73B6EA', '#8BE000'],
+    colors: ['#73B6EA', '#8BE000'],
     memorySizes: [8, 16, 32, 64, 128, 264],
   },
   {
@@ -74,7 +57,7 @@ export default [
     price: 8960,
     image: ['/img/phone-3.jpg'],
     memorySizes: [8, 264],
-    // colors: ['#FF6B00'],
+    colors: ['#FF6B00'],
   },
   {
     id: 7,
@@ -89,7 +72,7 @@ export default [
     title: 'Гироскутер Razor Hovertrax 2.0',
     price: 34990,
     image: ['/img/wheels.jpg'],
-    // colors: ['#FFBE15'],
+    colors: ['#FFBE15'],
   },
   {
     id: 9,
@@ -104,7 +87,7 @@ export default [
     title: 'Роллерсёрф Razor RipStik Air Pro',
     price: 6990,
     image: ['/img/ripstik.jpg'],
-    // colors: ['#73B6EA', '#000'],
+    colors: ['#73B6EA', '#000'],
   },
   {
     id: 11,
@@ -112,7 +95,7 @@ export default [
     title: 'Наушники AirPods с беспроводным зарядным футляром',
     price: 16560,
     image: ['/img/airpods.jpg'],
-    // colors: ['#73B6EA', '#8BE000'],
+    colors: ['#73B6EA', '#8BE000'],
     memorySizes: [264],
   },
   {
@@ -121,7 +104,7 @@ export default [
     title: 'Наушники Sony',
     price: 30690,
     image: ['/img/headphones.jpg'],
-    // colors: ['#73B6EA', '#8BE000'],
+    colors: ['#73B6EA', '#8BE000'],
     memorySizes: [8, 16, 32, 64, 128, 264],
   },
   {
@@ -130,7 +113,7 @@ export default [
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: ['/img/radio.jpg'],
-    // colors: ['#73B6EA'],
+    colors: ['#73B6EA'],
   },
   {
     id: 14,
@@ -138,7 +121,7 @@ export default [
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: ['/img/radio.jpg'],
-    // colors: ['#73B6EA'],
+    colors: ['#73B6EA'],
     memorySizes: [8, 16, 32],
   },
   {
@@ -147,6 +130,6 @@ export default [
     title: 'Радионяня Motorola MBP16',
     price: 3690,
     image: ['/img/radio.jpg'],
-    // colors: ['#73B6EA', '#8BE000'],
+    colors: ['#73B6EA', '#8BE000'],
   },
 ];
