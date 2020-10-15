@@ -57,10 +57,10 @@ export default {
       if (this.maxPages < this.pages) {
         return [
           this.page > 1 ? 1 : '',
-          this.page === 1 ? this.page : this.page,
-          this.page < this.maxPages ? this.page + 1 : this.page - 1,
-          this.page <= this.maxPages ? '...' : '...',
-          this.page > this.maxPages ? this.page - (this.maxPages - 1) : this.pages,
+          this.page <= this.pages - 2 ? this.page : '...',
+          this.page <= this.pages - 2 ? this.page + 1 : this.page - 1,
+          this.page <= this.pages - 2 ? '...' : this.page,
+          this.page >= this.pages ? '' : this.pages,
         ];
       }
       return this.pages;

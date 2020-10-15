@@ -2,7 +2,7 @@
   <li class="catalog__item">
     <a class="catalog__pic" href="#" >
       <picture>
-        <img :src="product.image"
+        <img :src="currentProductImg"
              :alt="product.title">
       </picture>
     </a>
@@ -18,15 +18,14 @@
     </span>
 
     <ul class="colors colors--black" v-if="product.colors">
-      <li class="colors__item"  v-for="(color, index) in product.colors" :key="index">
+      <li class="colors__item"  v-for="(color, index) in product.colors" :key=index>
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio"
-          :value="color" v-model="currentCheckedColor" @change="switchingColors">
-          <span class="colors__value" :style="{'background-color':color }">
+          :value="color.value" v-model="currentCheckedColor">
+          <span class="colors__value" :style="{'background-color':color.value }">
           </span>
         </label>
       </li>
-
     </ul>
   </li>
 </template>
@@ -42,18 +41,21 @@ export default {
       currentCheckedColor: 0,
     };
   },
-  computed: {},
 
-  watch: {
-    currentCheckedColor(value) {
-      this.currentCheckedColor = value;
-    },
-  },
-  methods: {
-    switchingColors() {
-      return this.$emit(
-        'update:switchingColors', this.currentCheckedColor,
-      );
+  computed: {
+    currentProductImg() {
+      if (this.product.colors) {
+        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[0].value) {
+          return this.product.colors[0].image;
+        }
+        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[1].value) {
+          return this.product.colors[1].image;
+        }
+        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[2].value) {
+          return this.product.colors[2].image;
+        }
+      }
+      return this.product.image;
     },
   },
 };

@@ -35,22 +35,7 @@
         </label>
       </fieldset>
 
-      <fieldset class="form__block" v-if="colors">
-        <legend class="form__legend">Цвет</legend>
-        <ul class="colors">
-          <li class="colors__item" v-for="(asideColor, index) in colors" :key="index">
-            <label class="colors__label">
-              <input
-                class="colors__radio sr-only"
-                type="radio"
-                :value="asideColor"
-                v-model="currentCheckedColor"
-              />
-              <span class="colors__value" :style="{'background-color': asideColor }"></span>
-            </label>
-          </li>
-        </ul>
-      </fieldset>
+      <ProductColors v-bind:changeColors.sync="currentCheckedColor"/>
 
       <fieldset class="form__block" v-if="memorySizesList">
         <legend class="form__legend">Объемб в ГБ</legend>
@@ -82,37 +67,40 @@
 </template>>
 
 <script>
+import ProductColors from './ProductColors.vue';
 import categories from '../data/categories';
 
-const COLORS = [
-  '#73B6EA',
-  '#FFBE15',
-  '#939393',
-  '#8BE000',
-  '#FF6B00',
-  '#000',
-];
 const MEMORY_SIZES = [8, 16, 32, 64, 128, 264];
 
+// const COLORS = [
+//   '#73B6EA',
+//   '#FFBE15',
+//   '#939393',
+//   '#8BE000',
+//   '#FF6B00',
+//   '#000',
+// ];
+
 export default {
+  components: { ProductColors },
   data() {
     return {
       currentCheckedMemorySizes: [],
       currentCheckedColor: 0,
-
       currentPriceFrom: 0,
       currentPriceTo: 0,
       currentCategoryId: 0,
     };
   },
   props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'memorySizesChecked'],
+
   computed: {
     categories() {
       return categories;
     },
-    colors() {
-      return COLORS;
-    },
+    // colors() {
+    //   return COLORS;
+    // },
     memorySizesList() {
       return MEMORY_SIZES;
     },
