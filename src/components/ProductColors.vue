@@ -9,7 +9,6 @@
             type="radio"
             :value="color"
             v-model="currentCheckedColor"
-            v-on:change="$emit('isCheckedColor', currentCheckedColor)"
           />
           <span class="colors__value" :style="{'background-color': color }"></span>
         </label>
@@ -31,13 +30,8 @@ export default {
     };
   },
   watch: {
-    currentColor(value) {
-      this.currentCheckedColor = value;
-    },
-  },
-  methods: {
-    isCheckedColor() {
-      this.$emit('currentColor');
+    currentCheckedColor(value) {
+      this.$emit('check-color', value);
     },
   },
 };

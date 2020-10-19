@@ -37,7 +37,7 @@
 
       <ProductColors
         :colors="colors"
-        v-on:isCheckedColor="currentCheckedColor = $event"
+        @check-color="currentCheckedColor = $event"
       />
 
       <fieldset class="form__block" v-if="memorySizesList">
