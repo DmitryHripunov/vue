@@ -44,14 +44,15 @@ export default {
 
   computed: {
     currentProductImg() {
+      const checkedColor = this.currentCheckedColor;
       if (this.product.colors) {
-        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[0].value) {
+        if (checkedColor && checkedColor === this.product.colors[0].value) {
           return this.product.colors[0].image;
         }
-        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[1].value) {
+        if (checkedColor && checkedColor === this.product.colors[1].value) {
           return this.product.colors[1].image;
         }
-        if (this.currentCheckedColor && this.currentCheckedColor === this.product.colors[2].value) {
+        if (checkedColor && checkedColor === this.product.colors[2].value) {
           return this.product.colors[2].image;
         }
       }

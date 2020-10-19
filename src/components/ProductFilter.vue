@@ -35,7 +35,10 @@
         </label>
       </fieldset>
 
-      <ProductColors v-bind:changeColors.sync="currentCheckedColor"/>
+      <ProductColors
+        :colors="colors"
+        v-on:isCheckedColor="currentCheckedColor = $event"
+      />
 
       <fieldset class="form__block" v-if="memorySizesList">
         <legend class="form__legend">Объемб в ГБ</legend>
@@ -72,14 +75,14 @@ import categories from '../data/categories';
 
 const MEMORY_SIZES = [8, 16, 32, 64, 128, 264];
 
-// const COLORS = [
-//   '#73B6EA',
-//   '#FFBE15',
-//   '#939393',
-//   '#8BE000',
-//   '#FF6B00',
-//   '#000',
-// ];
+const COLORS = [
+  '#73B6EA',
+  '#FFBE15',
+  '#939393',
+  '#8BE000',
+  '#FF6B00',
+  '#000',
+];
 
 export default {
   components: { ProductColors },
@@ -98,9 +101,9 @@ export default {
     categories() {
       return categories;
     },
-    // colors() {
-    //   return COLORS;
-    // },
+    colors() {
+      return COLORS;
+    },
     memorySizesList() {
       return MEMORY_SIZES;
     },
