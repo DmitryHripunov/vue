@@ -59,15 +59,20 @@
         </ul>
       </fieldset>
 
-      <button class="filter__submit button button--primery" type="submit">Применить</button>
+      <button
+        class="filter__submit button button--primery"
+        type="submit">
+        Применить
+      </button>
       <button
         class="filter__reset button button--second"
         type="button"
-        @click.prevent="reset"
-      >Сбросить</button>
+        @click.prevent="reset">
+        Сбросить
+      </button>
     </form>
   </aside>
-</template>>
+</template>
 
 <script>
 import ProductColors from './ProductColors.vue';

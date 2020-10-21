@@ -21,7 +21,9 @@
       <li class="colors__item"  v-for="(color, index) in product.colors" :key=index>
         <label class="colors__label">
           <input class="colors__radio sr-only" type="radio"
-          :value="color.value" v-model="currentCheckedColor">
+          :value="color.value"
+          v-model="currentCheckedColor"
+          >
           <span class="colors__value" :style="{'background-color':color.value }">
           </span>
         </label>
