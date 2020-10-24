@@ -8,9 +8,12 @@
             class="colors__radio sr-only"
             type="radio"
             :value="color"
-            v-model="currentCheckedColor"
+            v-model="colorChosen"
           />
-          <span class="colors__value" :style="{'background-color': color }"></span>
+          <span
+            class="colors__value"
+            :style="{ 'background-color': color }"
+          ></span>
         </label>
       </li>
     </ul>
@@ -21,17 +24,22 @@
 
 export default {
   name: 'ProductColors',
-
-  props: ['colors'],
-
+  props: ['colors', 'colorChecked'],
   data() {
     return {
-      currentCheckedColor: 0,
+      getColor: 0,
     };
   },
-  watch: {
-    currentCheckedColor(value) {
-      this.$emit('check-color', value);
+
+  computed: {
+    colorChosen: {
+      get: function getColor() {
+        return this.colorChecked;
+      },
+      set: function setColor(newValue) {
+        const color = newValue;
+        this.$emit('update:colorChecked', color);
+      },
     },
   },
 };

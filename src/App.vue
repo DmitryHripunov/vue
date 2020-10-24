@@ -41,7 +41,7 @@ export default {
       filterCheckedMemorySizes: 0,
 
       page: 1,
-      productPerPage: 2,
+      productPerPage: 6,
     };
   },
   computed: {

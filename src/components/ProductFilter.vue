@@ -2,16 +2,30 @@
   <aside class="filter">
     <h2 class="filter__title">Фильтры</h2>
 
-    <form class="filter__form form" action="#" method="get" @submit.prevent="submit">
+    <form
+      class="filter__form form"
+      action="#"
+      method="get"
+      @submit.prevent="submit"
+    >
       <fieldset class="form__block">
         <legend class="form__legend">Цена</legend>
         <label class="form__label form__label--price">
-          <input class="form__input" type="text" name="min-price"
-           v-model.number="currentPriceFrom" />
+          <input
+            class="form__input"
+            type="text"
+            name="min-price"
+            v-model.number="currentPriceFrom"
+          />
           <span class="form__value">От</span>
         </label>
         <label class="form__label form__label--price">
-          <input class="form__input" type="text" name="max-price" v-model.number="currentPriceTo" />
+          <input
+            class="form__input"
+            type="text"
+            name="max-price"
+            v-model.number="currentPriceTo"
+          />
           <span class="form__value">До</span>
         </label>
       </fieldset>
@@ -30,20 +44,26 @@
               :value="category.id"
               v-for="category in categories"
               :key="category.id"
-            >{{ category.title }}</option>
+            >
+              {{ category.title }}
+            </option>
           </select>
         </label>
       </fieldset>
 
       <ProductColors
         :colors="colors"
-        @check-color="currentCheckedColor = $event"
+        :color-checked.sync="currentCheckedColor"
       />
 
       <fieldset class="form__block" v-if="memorySizesList">
         <legend class="form__legend">Объемб в ГБ</legend>
         <ul class="check-list">
-          <li class="check-list__item" v-for="(check, index) in memorySizesList" :key="index">
+          <li
+            class="check-list__item"
+            v-for="(check, index) in memorySizesList"
+            :key="index"
+          >
             <label class="check-list__label">
               <input
                 class="check-list__check sr-only"
@@ -59,15 +79,14 @@
         </ul>
       </fieldset>
 
-      <button
-        class="filter__submit button button--primery"
-        type="submit">
+      <button class="filter__submit button button--primery" type="submit">
         Применить
       </button>
       <button
         class="filter__reset button button--second"
         type="button"
-        @click.prevent="reset">
+        @click.prevent="reset"
+      >
         Сбросить
       </button>
     </form>
@@ -79,16 +98,7 @@ import ProductColors from './ProductColors.vue';
 import categories from '../data/categories';
 
 const MEMORY_SIZES = [8, 16, 32, 64, 128, 264];
-
-const COLORS = [
-  '#73B6EA',
-  '#FFBE15',
-  '#939393',
-  '#8BE000',
-  '#FF6B00',
-  '#000',
-];
-
+const COLORS = ['#73B6EA', '#FFBE15', '#939393', '#8BE000', '#FF6B00', '#000'];
 export default {
   components: { ProductColors },
   data() {
@@ -100,8 +110,13 @@ export default {
       currentCategoryId: 0,
     };
   },
-  props: ['priceFrom', 'priceTo', 'categoryId', 'colorChecked', 'memorySizesChecked'],
-
+  props: [
+    'priceFrom',
+    'priceTo',
+    'categoryId',
+    'colorChecked',
+    'memorySizesChecked',
+  ],
   computed: {
     categories() {
       return categories;
@@ -147,4 +162,5 @@ export default {
     },
   },
 };
+
 </script>
