@@ -25,11 +25,11 @@
 export default {
   name: 'ProductColors',
   props: ['colors', 'colorChecked'],
-  data() {
-    return {
-      getColor: 0,
-    };
-  },
+  // data() {
+  //   return {
+  //     color: 0,
+  //   };
+  // },
 
   computed: {
     colorChosen: {
@@ -37,8 +37,7 @@ export default {
         return this.colorChecked;
       },
       set: function setColor(newValue) {
-        const color = newValue;
-        this.$emit('update:colorChecked', color);
+        this.$emit('update:colorChecked', newValue);
       },
     },
   },
