@@ -25,11 +25,6 @@
 export default {
   name: 'ProductColors',
   props: ['colors', 'colorChecked'],
-  // data() {
-  //   return {
-  //     color: 0,
-  //   };
-  // },
 
   computed: {
     colorChosen: {

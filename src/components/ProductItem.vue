@@ -1,6 +1,8 @@
 <template>
   <li class="catalog__item">
-    <a class="catalog__pic" href="#" >
+    <a class="catalog__pic" href="#"
+       @click.prevent="gotoPage('product', {id: product.id})"
+    >
       <picture>
         <img :src="currentProductImg"
              :alt="product.title">
@@ -14,7 +16,7 @@
     </h3>
 
     <span class="catalog__price">
-      {{ product.price }} ₽
+      {{ product.price | numberFormat }} ₽
     </span>
 
     <ul class="colors colors--black" v-if="product.colors">
@@ -33,11 +35,14 @@
 </template>
 
 <script>
+import gotoPage from '@/helpers/gotoPage';
+import numberFormat from '@/helpers/numberFormat';
 
 export default {
-
   props: ['product'],
-
+  filters: {
+    numberFormat,
+  },
   data() {
     return {
       currentCheckedColor: 0,
@@ -60,6 +65,10 @@ export default {
       }
       return this.product.image;
     },
+  },
+
+  methods: {
+    gotoPage,
   },
 };
 </script>
