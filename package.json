@@ -38,8 +38,8 @@
       "parser": "babel-eslint"
     },
     "rules": {
-      "linebreak-style": "0",
-      "global-require": "0"
+      "linebreak-style": "off",
+      "global-require": "off"
     }
   },
   "browserslist": [

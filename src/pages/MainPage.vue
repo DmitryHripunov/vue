@@ -7,11 +7,7 @@
 
     <div class="content__catalog">
       <ProductFilter
-        :price-from.sync="filterPriceFrom"
-        :price-to.sync="filterPriceTo"
-        :category-id.sync="filterCategoryId"
-        :color-checked.sync="filterCheckedColor"
-        :memory-sizes-checked.sync="filterCheckedMemorySizes"
+        v-bind.sync="filterResult"
       />
 
       <section class="catalog">
@@ -93,6 +89,15 @@ export default {
     },
     countProducts() {
       return this.filteredProducts.length;
+    },
+    filterResult() {
+      return {
+        priceFrom: this.filterPriceFrom,
+        priceTo: this.filterPriceTo,
+        categoryId: this.filterCategoryId,
+        colorChecked: this.filterCheckedColor,
+        memorySizesChecked: this.filterCheckedMemorySizes,
+      };
     },
   },
 };
