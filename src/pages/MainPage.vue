@@ -7,7 +7,7 @@
 
     <div class="content__catalog">
       <ProductFilter
-        v-bind.sync="filterResult"
+        v-bind.sync="filters"
       />
 
       <section class="catalog">
@@ -33,11 +33,24 @@ export default {
   components: { ProductList, BasePagination, ProductFilter },
   data() {
     return {
-      filterPriceFrom: 0,
-      filterPriceTo: 0,
-      filterCategoryId: 0,
-      filterCheckedColor: 0,
-      filterCheckedMemorySizes: 0,
+      // filterPriceFrom: 0,
+      // filterPriceTo: 0,
+      // filterCategoryId: 0,
+      // filterCheckedColor: 0,
+      // filterCheckedMemorySizes: 0,
+
+      filters: {
+        // priceFrom: this.filterPriceFrom,
+        // priceTo: this.filterPriceTo,
+        // categoryId: this.filterCategoryId,
+        // colorChecked: this.filterCheckedColor,
+        // memorySizesChecked: this.filterCheckedMemorySizes,
+        filterPriceFrom: 0,
+        filterPriceTo: 0,
+        filterCategoryId: 0,
+        filterCheckedColor: 0,
+        filterCheckedMemorySizes: 0,
+      },
 
       page: 1,
       productPerPage: 6,
@@ -89,15 +102,6 @@ export default {
     },
     countProducts() {
       return this.filteredProducts.length;
-    },
-    filterResult() {
-      return {
-        priceFrom: this.filterPriceFrom,
-        priceTo: this.filterPriceTo,
-        categoryId: this.filterCategoryId,
-        colorChecked: this.filterCheckedColor,
-        memorySizesChecked: this.filterCheckedMemorySizes,
-      };
     },
   },
 };

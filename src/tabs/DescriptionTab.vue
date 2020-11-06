@@ -49,6 +49,6 @@
 <script>
 export default {
   name: 'DescriptionTab',
-  props: ['tabParams'],
+  // props: ['tabParams'],
 };
 </script>

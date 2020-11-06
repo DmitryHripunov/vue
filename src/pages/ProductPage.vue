@@ -150,17 +150,17 @@
       </div>
 
       <div class="item__desc">
-        <ul class="tabs" v-if="tabLinkList">
-          <li class="tabs__item"  v-for="tab in tabLinkList" :key="tab">
+        <ul class="tabs" v-if="TABS">
+          <li class="tabs__item"  v-for="tab in TABS" :key="tab.id">
             <a class="tabs__link" href="#"
-                :class="{'tabs__link--current' : tab === currentTab}"
-              @click.prevent="gotoTab(tab)">
-              {{ tab }}
+                :class="{'tabs__link--current' : currentTabComponent === tab.component}"
+              @click.prevent="currentTabComponent = tab.component">
+              {{ tab.title }}
             </a>
           </li>
         </ul>
 
-        <component :is="currentTabComponent" :tab-params="currentTabParams" />
+        <component :is="currentTabComponent" />
       </div>
     </section>
   </main>
@@ -173,21 +173,46 @@ import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import DescriptionTab from '@/tabs/DescriptionTab.vue';
 import PropertyTab from '@/tabs/PropertyTab.vue';
+import GuaranteeTab from '@/tabs/GuaranteeTab.vue';
+import PaymentTab from '@/tabs/PaymentTab.vue';
 import NotFoundTab from '@/tabs/NotFoundTab.vue';
 
-const tabs = {
-  descriptionTab: 'DescriptionTab',
-  propertyTab: 'PropertyTab',
-};
-const TAB_LINK_LIST = ['Описание', 'Характеристики', 'Гарантия', 'Оплата и доставка'];
+const TABS = [
+  {
+    id: 1,
+    title: 'Описание',
+    component: 'DescriptionTab',
+  },
+  {
+    id: 2,
+    title: 'Характеристики',
+    component: 'PropertyTab',
+  },
+  {
+    id: 3,
+    title: 'Гарантия',
+    component: 'GuaranteeTab',
+  },
+  {
+    id: 4,
+    title: 'Оплата и доставка',
+    component: 'PaymentTab',
+  },
+];
 
 export default {
-  components: { DescriptionTab, PropertyTab, NotFoundTab },
+  components: {
+    DescriptionTab,
+    PropertyTab,
+    GuaranteeTab,
+    NotFoundTab,
+    PaymentTab,
+  },
   props: ['pageParams'],
   data() {
     return {
-      currentTab: 'descriptionTab',
-      currentTabParams: {},
+      TABS,
+      currentTabComponent: 'DescriptionTab',
     };
   },
   filters: {
@@ -200,18 +225,9 @@ export default {
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
     },
-    currentTabComponent() {
-      return tabs[this.currentTab] || 'NotFoundTab';
-    },
-    tabLinkList() {
-      return TAB_LINK_LIST;
-    },
   },
   methods: {
     gotoPage,
-    gotoTab(tabName) {
-      this.currentTab = tabName;
-    },
   },
 };
 </script>

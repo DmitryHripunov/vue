@@ -111,11 +111,11 @@ export default {
     };
   },
   props: [
-    'priceFrom',
-    'priceTo',
-    'categoryId',
-    'colorChecked',
-    'memorySizesChecked',
+    'filterPriceFrom',
+    'filterPriceTo',
+    'filterCategoryId',
+    'filterCheckedColor',
+    'filterCheckedMemorySizes',
   ],
   computed: {
     categories() {
