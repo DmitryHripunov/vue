@@ -49,36 +49,36 @@ export default {
     filteredProducts() {
       let filteredProducts = products;
 
-      if (this.filterPriceFrom > 0) {
+      if (this.filters.filterPriceFrom > 0) {
         filteredProducts = filteredProducts.filter(
-          (product) => product.price > this.filterPriceFrom,
+          (product) => product.price > this.filters.filterPriceFrom,
         );
       }
 
-      if (this.filterPriceTo > 0) {
+      if (this.filters.filterPriceTo > 0) {
         filteredProducts = filteredProducts.filter(
-          (product) => product.price < this.filterPriceTo,
+          (product) => product.price < this.filters.filterPriceTo,
         );
       }
 
-      if (this.filterCategoryId) {
+      if (this.filters.filterCategoryId) {
         filteredProducts = filteredProducts.filter(
-          (product) => product.categoryId === this.filterCategoryId,
+          (product) => product.categoryId === this.filters.filterCategoryId,
         );
       }
 
-      if (this.filterCheckedColor) {
+      if (this.filters.filterCheckedColor) {
         filteredProducts = filteredProducts.filter(
           (product) => product.colors && product.colors.some(
-            (m) => this.filterCheckedColor.includes(m.value),
+            (m) => this.filters.filterCheckedColor.includes(m.value),
           ),
         );
       }
 
-      if (this.filterCheckedMemorySizes) {
+      if (this.filters.filterCheckedMemorySizes.length) {
         filteredProducts = filteredProducts.filter(
           (product) => product.memorySizes && product.memorySizes.some(
-            (m) => this.filterCheckedMemorySizes.includes(m),
+            (m) => this.filters.filterCheckedMemorySizes.includes(m),
           ),
         );
       }
