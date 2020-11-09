@@ -2,7 +2,7 @@
   <main class="content container">
     <div class="content__top content__top--catalog">
       <h1 class="content__title">Каталог</h1>
-      <span class="content__info">152 товара</span>
+      <span class="content__info">{{ this.countProducts }} товара</span>
     </div>
 
     <div class="content__catalog">
@@ -11,7 +11,7 @@
       />
 
       <section class="catalog">
-        <ProductList :products="products"/>
+        <ProductList :products="products" />
 
         <BasePagination
           v-model="page"
@@ -33,23 +33,12 @@ export default {
   components: { ProductList, BasePagination, ProductFilter },
   data() {
     return {
-      // filterPriceFrom: 0,
-      // filterPriceTo: 0,
-      // filterCategoryId: 0,
-      // filterCheckedColor: 0,
-      // filterCheckedMemorySizes: 0,
-
       filters: {
-        // priceFrom: this.filterPriceFrom,
-        // priceTo: this.filterPriceTo,
-        // categoryId: this.filterCategoryId,
-        // colorChecked: this.filterCheckedColor,
-        // memorySizesChecked: this.filterCheckedMemorySizes,
         filterPriceFrom: 0,
         filterPriceTo: 0,
         filterCategoryId: 0,
         filterCheckedColor: 0,
-        filterCheckedMemorySizes: 0,
+        filterCheckedMemorySizes: [],
       },
 
       page: 1,
@@ -86,7 +75,7 @@ export default {
         );
       }
 
-      if (this.filterCheckedMemorySizes.length) {
+      if (this.filterCheckedMemorySizes) {
         filteredProducts = filteredProducts.filter(
           (product) => product.memorySizes && product.memorySizes.some(
             (m) => this.filterCheckedMemorySizes.includes(m),
