@@ -3,14 +3,14 @@
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="#" @click.prevent="gotoPage('main')">
+          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
             Каталог
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
-          <a class="breadcrumbs__link" href="#" @click.prevent="gotoPage('main')">
+          <router-link class="breadcrumbs__link" :to="{name: 'main'}">
             {{ category.title }}
-          </a>
+          </router-link>
         </li>
         <li class="breadcrumbs__item">
           <a class="breadcrumbs__link">
@@ -26,25 +26,13 @@
           <img width="570" height="570" :src="product.image" :alt="product.title"
             >
         </div>
-<!--        <ul class="pics__list">-->
-<!--          <li class="pics__item">-->
-<!--            <a href="" class="pics__link pics__link&#45;&#45;current">-->
-<!--              <img width="98" height="98" src="img/phone-square-1.jpg" alt="Название товара">-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="pics__item">-->
-<!--            <a href="" class="pics__link">-->
-<!--              <img width="98" height="98" src="img/phone-square-2.jpg" alt="Название товара">-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="pics__item">-->
-<!--            <a href="" class="pics__link">-->
-<!--              <img width="98" height="98" src="img/phone-square-3.jpg" alt="Название товара">-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li class="pics__item">-->
-<!--            <a class="pics__link" href="#">-->
-<!--              <img width="98" height="98" src="img/phone-square-4.jpg" alt="Название товара">-->
+<!--        <ul class="pics__list" v-if="product.colors">-->
+<!--          <li class="pics__item"-->
+<!--              v-for="(picture, index) in product.colors" :key="index">-->
+<!--            <a href="#" class="pics__link pics__link&#45;&#45;current"-->
+<!--               @click.prevent=""-->
+<!--            >-->
+<!--              <img width="98" height="98" :src="picture.image" :alt="product.title">-->
 <!--            </a>-->
 <!--          </li>-->
 <!--        </ul>-->
@@ -56,7 +44,7 @@
           {{ product.title }}
         </h2>
         <div class="item__form">
-          <form class="form" action="#" method="POST">
+          <form class="form" action="#" method="POST" @submit.prevent="addToCart">
             <b class="item__price">
               {{ product.price | numberFormat }} ₽
             </b>
@@ -90,39 +78,39 @@
               </ul>
             </fieldset>
 
-            <fieldset class="form__block">
-              <legend class="form__legend">Объемб в ГБ:</legend>
+<!--            <fieldset class="form__block">-->
+<!--              <legend class="form__legend">Объемб в ГБ:</legend>-->
 
-              <ul class="sizes sizes--primery">
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio"
-                    name="sizes-item" value="32">
-                    <span class="sizes__value">
-                      32gb
-                    </span>
-                  </label>
-                </li>
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio"
-                    name="sizes-item" value="64">
-                    <span class="sizes__value">
-                      64gb
-                    </span>
-                  </label>
-                </li>
-                <li class="sizes__item">
-                  <label class="sizes__label">
-                    <input class="sizes__radio sr-only" type="radio"
-                    name="sizes-item" value="128" checked="">
-                    <span class="sizes__value">
-                      128gb
-                    </span>
-                  </label>
-                </li>
-              </ul>
-            </fieldset>
+<!--              <ul class="sizes sizes&#45;&#45;primery">-->
+<!--                <li class="sizes__item">-->
+<!--                  <label class="sizes__label">-->
+<!--                    <input class="sizes__radio sr-only" type="radio"-->
+<!--                    name="sizes-item" value="32">-->
+<!--                    <span class="sizes__value">-->
+<!--                      32gb-->
+<!--                    </span>-->
+<!--                  </label>-->
+<!--                </li>-->
+<!--                <li class="sizes__item">-->
+<!--                  <label class="sizes__label">-->
+<!--                    <input class="sizes__radio sr-only" type="radio"-->
+<!--                    name="sizes-item" value="64">-->
+<!--                    <span class="sizes__value">-->
+<!--                      64gb-->
+<!--                    </span>-->
+<!--                  </label>-->
+<!--                </li>-->
+<!--                <li class="sizes__item">-->
+<!--                  <label class="sizes__label">-->
+<!--                    <input class="sizes__radio sr-only" type="radio"-->
+<!--                    name="sizes-item" value="128" checked="">-->
+<!--                    <span class="sizes__value">-->
+<!--                      128gb-->
+<!--                    </span>-->
+<!--                  </label>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </fieldset>-->
 
             <div class="item__row">
               <div class="form__counter">
@@ -132,7 +120,7 @@
                   </svg>
                 </button>
 
-                <input type="text" value="1" name="count">
+                <input type="text" v-model.number="productAmount">
 
                 <button type="button" aria-label="Добавить один товар">
                   <svg width="12" height="12" fill="currentColor">
@@ -208,11 +196,12 @@ export default {
     NotFoundTab,
     PaymentTab,
   },
-  props: ['pageParams'],
   data() {
     return {
       TABS,
       currentTabComponent: 'DescriptionTab',
+
+      productAmount: 1,
     };
   },
   filters: {
@@ -220,7 +209,7 @@ export default {
   },
   computed: {
     product() {
-      return products.find((product) => product.id === this.pageParams.id);
+      return products.find((product) => product.id === +this.$route.params.id);
     },
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
@@ -228,6 +217,12 @@ export default {
   },
   methods: {
     gotoPage,
+    addToCart() {
+      this.$store.commit(
+        'addProductToCart',
+        { productId: this.product.id, amount: this.productAmount },
+      );
+    },
   },
 };
 </script>
