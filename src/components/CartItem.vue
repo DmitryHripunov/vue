@@ -15,19 +15,11 @@
               </span>
 
     <div class="product__counter form__counter">
-      <button type="button" aria-label="Убрать один товар">
-        <svg width="10" height="10" fill="currentColor">
-          <use xlink:href="#icon-minus"></use>
-        </svg>
-      </button>
+      <ProductDecrement :item.sync="item" />
 
       <input type="text" v-model.number="amount" name="count">
 
-      <button type="button" aria-label="Добавить один товар">
-        <svg width="10" height="10" fill="currentColor">
-          <use xlink:href="#icon-plus"></use>
-        </svg>
-      </button>
+      <ProductIncrement :item.sync="item"/>
     </div>
 
     <b class="product__price">
@@ -49,14 +41,15 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import { mapMutations } from 'vuex';
+import ProductIncrement from '@/components/ProductIncrement.vue';
+import ProductDecrement from '@/components/ProductDecrement.vue';
 
 export default {
+  components: { ProductIncrement, ProductDecrement },
   filters: {
     numberFormat,
   },
-
   props: ['item'],
-
   computed: {
     amount: {
       get() {
@@ -67,7 +60,6 @@ export default {
       },
     },
   },
-
   methods: {
     ...mapMutations({ deleteProduct: 'deleteCartProduct' }),
   },

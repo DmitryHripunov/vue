@@ -18,25 +18,20 @@
     </span>
 
     <ul class="colors colors--black" v-if="product.colors">
-      <li class="colors__item"  v-for="(color, index) in product.colors" :key=index>
-        <label class="colors__label">
-          <input class="colors__radio sr-only" type="radio"
-          :value="color.value"
-          v-model="currentCheckedColor"
-          >
-          <span class="colors__value" :style="{'background-color':color.value }">
-          </span>
-        </label>
-      </li>
+      <ProductColorsIgm
+        v-for="(color, index) in product.colors" :key=index :color="color"
+        :color-checked.sync="currentCheckedColor"
+      />
     </ul>
   </li>
 </template>
 
 <script>
-import gotoPage from '@/helpers/gotoPage';
+import ProductColorsIgm from '@/components/ProductColorsIgm.vue';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
+  components: { ProductColorsIgm },
   props: ['product'],
   filters: {
     numberFormat,
@@ -63,10 +58,6 @@ export default {
       }
       return this.product.image;
     },
-  },
-
-  methods: {
-    gotoPage,
   },
 };
 </script>

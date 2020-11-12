@@ -23,19 +23,19 @@
     <section class="item">
       <div class="item__pics pics">
         <div class="pics__wrapper">
-          <img width="570" height="570" :src="product.image" :alt="product.title"
+          <img width="570" height="570" :src="currentProductImg" :alt="product.title"
             >
         </div>
-<!--        <ul class="pics__list" v-if="product.colors">-->
-<!--          <li class="pics__item"-->
-<!--              v-for="(picture, index) in product.colors" :key="index">-->
+        <ul class="pics__list" v-if="product.colors">
+          <li class="pics__item"
+              v-for="(picture, index) in product.colors" :key="index">
 <!--            <a href="#" class="pics__link pics__link&#45;&#45;current"-->
 <!--               @click.prevent=""-->
 <!--            >-->
-<!--              <img width="98" height="98" :src="picture.image" :alt="product.title">-->
+              <img width="98" height="98" :src="picture.image" :alt="product.title">
 <!--            </a>-->
-<!--          </li>-->
-<!--        </ul>-->
+          </li>
+        </ul>
       </div>
 
       <div class="item__info">
@@ -50,85 +50,23 @@
             </b>
 
             <fieldset class="form__block">
-              <legend class="form__legend">Цвет:</legend>
+              <legend class="form__legend" v-if="product.colors" > Цвет:</legend>
               <ul class="colors">
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio"
-                    name="color-item" value="blue" checked="">
-                    <span class="colors__value" style="background-color: #73B6EA;">
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio"
-                    name="color-item" value="yellow">
-                    <span class="colors__value" style="background-color: #FFBE15;">
-                    </span>
-                  </label>
-                </li>
-                <li class="colors__item">
-                  <label class="colors__label">
-                    <input class="colors__radio sr-only" type="radio"
-                    name="color-item" value="gray">
-                    <span class="colors__value" style="background-color: #939393;">
-                  </span></label>
-                </li>
+                <ProductColorsIgm
+                  v-for="(color, index) in product.colors" :key=index :color="color"
+                  :color-checked.sync="currentCheckedColor"
+                />
               </ul>
             </fieldset>
 
-<!--            <fieldset class="form__block">-->
-<!--              <legend class="form__legend">Объемб в ГБ:</legend>-->
-
-<!--              <ul class="sizes sizes&#45;&#45;primery">-->
-<!--                <li class="sizes__item">-->
-<!--                  <label class="sizes__label">-->
-<!--                    <input class="sizes__radio sr-only" type="radio"-->
-<!--                    name="sizes-item" value="32">-->
-<!--                    <span class="sizes__value">-->
-<!--                      32gb-->
-<!--                    </span>-->
-<!--                  </label>-->
-<!--                </li>-->
-<!--                <li class="sizes__item">-->
-<!--                  <label class="sizes__label">-->
-<!--                    <input class="sizes__radio sr-only" type="radio"-->
-<!--                    name="sizes-item" value="64">-->
-<!--                    <span class="sizes__value">-->
-<!--                      64gb-->
-<!--                    </span>-->
-<!--                  </label>-->
-<!--                </li>-->
-<!--                <li class="sizes__item">-->
-<!--                  <label class="sizes__label">-->
-<!--                    <input class="sizes__radio sr-only" type="radio"-->
-<!--                    name="sizes-item" value="128" checked="">-->
-<!--                    <span class="sizes__value">-->
-<!--                      128gb-->
-<!--                    </span>-->
-<!--                  </label>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--            </fieldset>-->
-
             <div class="item__row">
               <div class="form__counter">
-                <button type="button" aria-label="Убрать один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-minus"></use>
-                  </svg>
-                </button>
+                <ProductDecrement :item.sync="item" />
 
-                <input type="text" v-model.number="productAmount">
+                <input type="text" v-model.number="amount">
 
-                <button type="button" aria-label="Добавить один товар">
-                  <svg width="12" height="12" fill="currentColor">
-                    <use xlink:href="#icon-plus"></use>
-                  </svg>
-                </button>
+                <ProductIncrement :item.sync="item" />
               </div>
-
               <button class="button button--primery" type="submit">
                 В корзину
               </button>
@@ -164,6 +102,9 @@ import PropertyTab from '@/tabs/PropertyTab.vue';
 import GuaranteeTab from '@/tabs/GuaranteeTab.vue';
 import PaymentTab from '@/tabs/PaymentTab.vue';
 import NotFoundTab from '@/tabs/NotFoundTab.vue';
+import ProductColorsIgm from '@/components/ProductColorsIgm.vue';
+import ProductIncrement from '@/components/ProductIncrement.vue';
+import ProductDecrement from '../components/ProductDecrement.vue';
 
 const TABS = [
   {
@@ -195,13 +136,20 @@ export default {
     GuaranteeTab,
     NotFoundTab,
     PaymentTab,
+    ProductColorsIgm,
+    ProductIncrement,
+    ProductDecrement,
   },
+  props: ['item'],
+
   data() {
     return {
       TABS,
       currentTabComponent: 'DescriptionTab',
 
-      productAmount: 1,
+      amount: 1,
+
+      currentCheckedColor: 0,
     };
   },
   filters: {
@@ -214,13 +162,29 @@ export default {
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
     },
+
+    currentProductImg() {
+      const checkedColor = this.currentCheckedColor;
+      if (this.product.colors) {
+        if (checkedColor && checkedColor === this.product.colors[0].value) {
+          return this.product.colors[0].image;
+        }
+        if (checkedColor && checkedColor === this.product.colors[1].value) {
+          return this.product.colors[1].image;
+        }
+        if (checkedColor && checkedColor === this.product.colors[2].value) {
+          return this.product.colors[2].image;
+        }
+      }
+      return this.product.image;
+    },
   },
   methods: {
     gotoPage,
     addToCart() {
       this.$store.commit(
         'addProductToCart',
-        { productId: this.product.id, amount: this.productAmount },
+        { productId: this.product.id, amount: this.amount },
       );
     },
   },
