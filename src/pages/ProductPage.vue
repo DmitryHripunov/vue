@@ -46,7 +46,7 @@
         <div class="item__form">
           <form class="form" action="#" method="POST" @submit.prevent="addToCart">
             <b class="item__price">
-              {{ product.price | numberFormat }} ₽
+              {{ product.price * amount | numberFormat }} ₽
             </b>
 
             <fieldset class="form__block">
@@ -60,13 +60,8 @@
             </fieldset>
 
             <div class="item__row">
-              <div class="form__counter">
-                <ProductDecrement :item.sync="item" />
+              <Counter :amount.sync="amount" />
 
-                <input type="text" v-model.number="amount">
-
-                <ProductIncrement :item.sync="item" />
-              </div>
               <button class="button button--primery" type="submit">
                 В корзину
               </button>
@@ -103,8 +98,7 @@ import GuaranteeTab from '@/tabs/GuaranteeTab.vue';
 import PaymentTab from '@/tabs/PaymentTab.vue';
 import NotFoundTab from '@/tabs/NotFoundTab.vue';
 import ProductColorsIgm from '@/components/ProductColorsIgm.vue';
-import ProductIncrement from '@/components/ProductIncrement.vue';
-import ProductDecrement from '../components/ProductDecrement.vue';
+import Counter from '../components/Counter.vue';
 
 const TABS = [
   {
@@ -137,18 +131,13 @@ export default {
     NotFoundTab,
     PaymentTab,
     ProductColorsIgm,
-    ProductIncrement,
-    ProductDecrement,
+    Counter,
   },
-  props: ['item'],
-
   data() {
     return {
       TABS,
       currentTabComponent: 'DescriptionTab',
-
       amount: 1,
-
       currentCheckedColor: 0,
     };
   },
@@ -162,7 +151,6 @@ export default {
     category() {
       return categories.find((category) => category.id === this.product.categoryId);
     },
-
     currentProductImg() {
       const checkedColor = this.currentCheckedColor;
       if (this.product.colors) {

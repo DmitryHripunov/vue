@@ -11,19 +11,13 @@
     </h3>
 
     <span class="product__code">
-                Артикул: {{ item.product.id }}
-              </span>
+      Артикул: {{ item.product.id }}
+    </span>
 
-    <div class="product__counter form__counter">
-      <ProductDecrement :item.sync="item" />
-
-      <input type="text" v-model.number="amount" name="count">
-
-      <ProductIncrement :item.sync="item"/>
-    </div>
+    <Counter :amount.sync="amount" />
 
     <b class="product__price">
-      {{ (item.amount * item.product.price) | numberFormat }} ₽
+      {{ (amount * item.product.price) | numberFormat }} ₽
     </b>
 
     <button
@@ -41,14 +35,14 @@
 <script>
 import numberFormat from '@/helpers/numberFormat';
 import { mapMutations } from 'vuex';
-import ProductIncrement from '@/components/ProductIncrement.vue';
-import ProductDecrement from '@/components/ProductDecrement.vue';
+import Counter from '@/components/Counter.vue';
 
 export default {
-  components: { ProductIncrement, ProductDecrement },
+  components: { Counter },
   filters: {
     numberFormat,
   },
+
   props: ['item'],
   computed: {
     amount: {

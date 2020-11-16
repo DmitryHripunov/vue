@@ -198,3 +198,5 @@ a{text-decoration:none}
 .footer__data{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,auto);grid-gap:10px;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;grid-column:2/3;grid-row:3/4}
 .pagination__link--display-none{visibility: hidden}
 .pagination__link--default{cursor: default}.form__counter button{cursor:pointer;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {-webkit-appearance: none;margin: 0;}
