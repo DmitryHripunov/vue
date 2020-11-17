@@ -40,10 +40,10 @@ export default {
 
   methods: {
     increment() {
-      this.$emit('update:amount', this.count + 1);
+      this.count += 1;
     },
     decrement() {
-      this.$emit('update:amount', this.count - 1);
+      this.count -= 1;
     },
   },
 };
