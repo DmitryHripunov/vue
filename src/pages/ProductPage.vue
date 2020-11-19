@@ -97,7 +97,6 @@ import PropertyTab from '@/tabs/PropertyTab.vue';
 import GuaranteeTab from '@/tabs/GuaranteeTab.vue';
 import PaymentTab from '@/tabs/PaymentTab.vue';
 import NotFoundTab from '@/tabs/NotFoundTab.vue';
-import ProductColorsIgm from '@/components/ProductColorsIgm.vue';
 import Counter from '../components/Counter.vue';
 
 const TABS = [
@@ -130,7 +129,6 @@ export default {
     GuaranteeTab,
     NotFoundTab,
     PaymentTab,
-    ProductColorsIgm,
     Counter,
   },
   data() {

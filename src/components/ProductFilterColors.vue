@@ -7,12 +7,12 @@
           <input
             class="colors__radio sr-only"
             type="radio"
-            :value="color"
+            :value="color.code"
             v-model="colorChosen"
           />
           <span
             class="colors__value"
-            :style="{ 'background-color': color }"
+            :style="{ 'background-color': color.code }"
           ></span>
         </label>
       </li>
@@ -23,16 +23,15 @@
 <script>
 
 export default {
-  name: 'ProductColors',
   props: ['colors', 'colorChecked'],
 
   computed: {
     colorChosen: {
-      get: function getColor() {
+      get() {
         return this.colorChecked;
       },
-      set: function setColor(newValue) {
-        this.$emit('update:colorChecked', newValue);
+      set(value) {
+        this.$emit('update:colorChecked', value);
       },
     },
   },
