@@ -1,5 +1,18 @@
 <template>
-    <main class="content container">
+  <div style="height: 55vh; position: relative" v-if="productLoading">
+    <Preloader />
+  </div>
+
+  <div class="error-wrapper" style="height: 55vh" v-else-if="productLoadingField">
+    <h2 class="error-heading">
+      Ой!<br> Что-то пошло не так
+    </h2>
+    <button class="error-button" @click.prevent="loadProduct">
+      перезагрузить
+    </button>
+  </div>
+
+  <main class="content container" v-else-if="productsData">
     <div class="content__top">
       <ul class="breadcrumbs">
         <li class="breadcrumbs__item">
@@ -23,19 +36,21 @@
     <section class="item">
       <div class="item__pics pics">
         <div class="pics__wrapper">
-          <img width="570" height="570" :src="currentProductImg" :alt="product.title"
+          <img
+               :src="productsData.image.file.url"
+               :alt="product.title"
             >
         </div>
-        <ul class="pics__list" v-if="product.colors">
-          <li class="pics__item"
-              v-for="(picture, index) in product.colors" :key="index">
-<!--            <a href="#" class="pics__link pics__link&#45;&#45;current"-->
-<!--               @click.prevent=""-->
-<!--            >-->
-              <img width="98" height="98" :src="picture.image" :alt="product.title">
-<!--            </a>-->
-          </li>
-        </ul>
+<!--        <ul class="pics__list" v-if="product.colors">-->
+<!--          <li class="pics__item"-->
+<!--              v-for="(picture, index) in product.colors" :key="index">-->
+<!--&lt;!&ndash;         <a href="#" class="pics__link pics__link&#45;&#45;current"&ndash;&gt;-->
+<!--&lt;!&ndash;               @click.prevent=""&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--              <img width="98" height="98" :src="picture.image" :alt="product.title">-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--          </li>-->
+<!--        </ul>-->
       </div>
 
       <div class="item__info">
@@ -44,27 +59,31 @@
           {{ product.title }}
         </h2>
         <div class="item__form">
-          <form class="form" action="#" method="POST" @submit.prevent="addToCart">
+          <form class="form" @submit.prevent="addToCart">
             <b class="item__price">
               {{ product.price * amount | numberFormat }} ₽
             </b>
 
-            <fieldset class="form__block">
-              <legend class="form__legend" v-if="product.colors" > Цвет:</legend>
-              <ul class="colors">
-                <ProductColorsIgm
-                  v-for="(color, index) in product.colors" :key=index :color="color"
-                  :color-checked.sync="currentCheckedColor"
-                />
-              </ul>
-            </fieldset>
+            <ul class="colors" v-if="productsData.colors">
+              <ProductFilterColors
+                :colors="productsData.colors"
+                :color-checked.sync="currentCheckedColor"
+              />
+            </ul>
 
             <div class="item__row">
               <Counter :amount.sync="amount" />
 
-              <button class="button button--primery" type="submit">
-                В корзину
+              <button class="button button--primery" type="submit"
+                :disabled="productAddSending"
+              >
+                <span v-if="!productAddSending">В корзину</span>
+                <span v-show="productAddSending">Добавляем</span>
               </button>
+
+              <div v-show="productAdded">
+                <span > Товар добавлен</span>
+              </div>
             </div>
           </form>
         </div>
@@ -88,8 +107,10 @@
 </template>
 
 <script>
-import products from '@/data/products';
-import categories from '@/data/categories';
+import Preloader from '@/components/Preloader.vue';
+import axios from 'axios';
+import { API_BASE_URL } from '@/config';
+import ProductFilterColors from '@/components/ProductFilterColors.vue';
 import gotoPage from '@/helpers/gotoPage';
 import numberFormat from '@/helpers/numberFormat';
 import DescriptionTab from '@/tabs/DescriptionTab.vue';
@@ -97,6 +118,7 @@ import PropertyTab from '@/tabs/PropertyTab.vue';
 import GuaranteeTab from '@/tabs/GuaranteeTab.vue';
 import PaymentTab from '@/tabs/PaymentTab.vue';
 import NotFoundTab from '@/tabs/NotFoundTab.vue';
+import { mapActions } from 'vuex';
 import Counter from '../components/Counter.vue';
 
 const TABS = [
@@ -124,12 +146,14 @@ const TABS = [
 
 export default {
   components: {
+    ProductFilterColors,
     DescriptionTab,
     PropertyTab,
     GuaranteeTab,
     NotFoundTab,
     PaymentTab,
     Counter,
+    Preloader,
   },
   data() {
     return {
@@ -137,6 +161,13 @@ export default {
       currentTabComponent: 'DescriptionTab',
       amount: 1,
       currentCheckedColor: 0,
+
+      productsData: null,
+      productLoading: false,
+      productLoadingField: false,
+
+      productAdded: false,
+      productAddSending: false,
     };
   },
   filters: {
@@ -144,34 +175,50 @@ export default {
   },
   computed: {
     product() {
-      return products.find((product) => product.id === +this.$route.params.id);
+      return this.productsData;
     },
     category() {
-      return categories.find((category) => category.id === this.product.categoryId);
-    },
-    currentProductImg() {
-      const checkedColor = this.currentCheckedColor;
-      if (this.product.colors) {
-        if (checkedColor && checkedColor === this.product.colors[0].value) {
-          return this.product.colors[0].image;
-        }
-        if (checkedColor && checkedColor === this.product.colors[1].value) {
-          return this.product.colors[1].image;
-        }
-        if (checkedColor && checkedColor === this.product.colors[2].value) {
-          return this.product.colors[2].image;
-        }
-      }
-      return this.product.image;
+      return this.productsData.category;
     },
   },
   methods: {
+    ...mapActions(['addProductToCart']),
+
     gotoPage,
     addToCart() {
-      this.$store.commit(
-        'addProductToCart',
-        { productId: this.product.id, amount: this.amount },
-      );
+      this.productAdded = false;
+      this.productAddSending = true;
+
+      this.addProductToCart({ productId: this.product.id, amount: this.amount })
+        .then(() => {
+          this.productAdded = true;
+          this.productAddSending = false;
+        });
+    },
+    loadProduct() {
+      this.productLoading = true;
+      this.productLoadingField = false;
+      clearTimeout(this.loadProductTimer);
+      this.loadProductTimer = setTimeout(() => {
+        axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
+          .then((response) => {
+            this.productsData = response.data;
+          })
+          .catch(() => {
+            this.productLoadingField = true;
+          })
+          .then(() => {
+            this.productLoading = false;
+          });
+      }, 3000);
+    },
+  },
+  watch: {
+    '$route.params.id': {
+      handler() {
+        this.loadProduct();
+      },
+      immediate: true,
     },
   },
 };

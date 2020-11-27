@@ -17,28 +17,32 @@
       {{ product.price | numberFormat }} ₽
     </span>
 
-    <ul class="colors colors--black" v-if="product.colors">
-      <li class="colors__item" v-for="(color, index) in product.colors" :key="index">
-        <label class="colors__label">
-          <input class="colors__radio sr-only" type="radio"
-             :value="color.code"
-          >
-          <span class="colors__value" :style="{'background-color':color.code }">
-          </span>
-        </label>
-      </li>
-    </ul>
+    <ProductFilterColors
+      :colors="product.colors"
+      :color-checked.sync="currentCheckedColor"
+    />
   </li>
 </template>
 
 <script>
+import ProductFilterColors from '@/components/ProductFilterColors.vue';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
+  data() {
+    return {
+      currentCheckedColor: 0,
+    };
+  },
   props: ['product'],
-
+  components: { ProductFilterColors },
   filters: {
     numberFormat,
+  },
+  watch: {
+    colorChecked(value) {
+      this.currentCheckedColor = value;
+    },
   },
 };
 </script>

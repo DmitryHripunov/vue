@@ -55,29 +55,6 @@
         :color-checked.sync="currentCheckedColor"
       />
 
-<!--      <fieldset class="form__block" v-if="memorySizesList">-->
-<!--        <legend class="form__legend">Объемб в ГБ</legend>-->
-<!--        <ul class="check-list">-->
-<!--          <li-->
-<!--            class="check-list__item"-->
-<!--            v-for="(check, index) in memorySizesList"-->
-<!--            :key="index"-->
-<!--          >-->
-<!--            <label class="check-list__label">-->
-<!--              <input-->
-<!--                class="check-list__check sr-only"-->
-<!--                type="checkbox"-->
-<!--                :value="check"-->
-<!--                v-model="currentCheckedMemorySizes"-->
-<!--              />-->
-<!--              <span class="check-list__desc">-->
-<!--                {{ check }}-->
-<!--              </span>-->
-<!--            </label>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </fieldset>-->
-
       <button class="filter__submit button button--primery" type="submit">
         Применить
       </button>
@@ -97,12 +74,10 @@ import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import ProductFilterColors from './ProductFilterColors.vue';
 
-// const MEMORY_SIZES = [8, 16, 32, 64, 128, 264];
 export default {
   components: { ProductFilterColors },
   data() {
     return {
-      // currentCheckedMemorySizes: [],
       currentCheckedColor: 0,
       currentPriceFrom: 0,
       currentPriceTo: 0,
@@ -117,7 +92,6 @@ export default {
     'filterPriceTo',
     'filterCategoryId',
     'filterCheckedColor',
-    // 'filterCheckedMemorySizes',
   ],
   computed: {
     categories() {
@@ -126,10 +100,6 @@ export default {
     colors() {
       return this.colorsData ? this.colorsData.items : [];
     },
-    // memorySizesList() {
-    //   return MEMORY_SIZES;
-    // },
-
   },
   watch: {
     filterPriceFrom(value) {
@@ -144,9 +114,6 @@ export default {
     filterCheckedColor(value) {
       this.currentCheckedColor = value;
     },
-    // filterCheckedMemorySizes(value) {
-    //   this.currentCheckedMemorySizes = value;
-    // },
   },
   methods: {
     submit() {
@@ -154,14 +121,12 @@ export default {
       this.$emit('update:filterPriceTo', this.currentPriceTo);
       this.$emit('update:filterCategoryId', this.currentCategoryId);
       this.$emit('update:filterCheckedColor', this.currentCheckedColor);
-      // this.$emit('update:filterCheckedMemorySizes', this.currentCheckedMemorySizes);
     },
     reset() {
       this.$emit('update:filterPriceFrom', 0);
       this.$emit('update:filterPriceTo', 0);
       this.$emit('update:filterCategoryId', 0);
       this.$emit('update:filterCheckedColor', 0);
-      // this.$emit('update:filterCheckedMemorySizes', []);
     },
     loadCategories() {
       axios.get(`${API_BASE_URL}/api/productCategories`)
