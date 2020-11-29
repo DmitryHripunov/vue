@@ -7,7 +7,7 @@
           <input
             class="colors__radio sr-only"
             type="radio"
-            :value="color.code"
+            :value="color.id"
             v-model="colorChosen"
           />
           <span

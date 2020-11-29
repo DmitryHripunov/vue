@@ -3,7 +3,7 @@
     <button type="button"
       aria-label="Убрать один товар"
       @click="decrement"
-      :disabled="amount <= 0 || amount === ''"
+      :disabled="amount <= 1 || amount === ''"
     >
       <svg width="12" height="12" fill="currentColor">
         <use xlink:href="#icon-minus"></use>

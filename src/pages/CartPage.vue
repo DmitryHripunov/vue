@@ -18,7 +18,8 @@
         Корзина
       </h1>
       <span class="content__info">
-        {{ countProduct }} товара
+        {{ countProduct }}
+        {{ declText(countProduct, PRODUCT_TEXT) }}
       </span>
     </div>
 
@@ -38,7 +39,9 @@
             Итого: <span> {{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <button class="cart__button button button--primery" type="submit">
+          <button class="cart__button button button--primery" type="submit"
+          :disabled="totalPrice === 0"
+          >
             Оформить заказ
           </button>
         </div>
@@ -51,8 +54,17 @@
 import CartItem from '@/components/CartItem.vue';
 import numberFormat from '@/helpers/numberFormat';
 import { mapGetters } from 'vuex';
+import declText from '@/helpers/declText';
+
+const PRODUCT_TEXT = ['товар', 'товара', 'товаров'];
 
 export default {
+  data() {
+    return {
+      declText,
+      PRODUCT_TEXT,
+    };
+  },
   components: { CartItem },
 
   filters: {

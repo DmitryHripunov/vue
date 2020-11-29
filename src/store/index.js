@@ -21,9 +21,9 @@ export default new Vuex.Store({
       }
     },
 
-    // deleteCartProduct(state, productId) {
-    //   state.cartProducts = state.cartProducts.find((item) => item.productId !== productId);
-    // },
+    deleteCartProduct(state, productId) {
+      state.cartProducts = state.cartProducts.filter((item) => item.productId !== productId);
+    },
 
     updateUserAccessKey(state, accessKey) {
       state.userAccessKey = accessKey;
@@ -121,17 +121,15 @@ export default new Vuex.Store({
     },
 
     deleteProductFromCart(context, { productId }) {
-      context.commit('updateCartProductsData', { productId });
+      context.commit('deleteCartProduct', productId);
       return axios.delete(`${API_BASE_URL}/api/baskets/products`, {
-        productId,
-      }, {
+        data: {
+          productId,
+        },
         params: {
           userAccessKey: context.state.userAccessKey,
         },
       })
-        .catch((response) => {
-          console.log(response.error);
-        })
         .then((response) => {
           context.commit('updateCartProductsData', response.data.items);
           context.commit('syncCartProducts');

@@ -75,7 +75,7 @@
               <Counter :amount.sync="amount" />
 
               <button class="button button--primery" type="submit"
-                :disabled="productAddSending"
+                :disabled="productAddSending || amount === 0 || amount === ''"
               >
                 <span v-if="!productAddSending">В корзину</span>
                 <span v-show="productAddSending">Добавляем</span>
@@ -210,7 +210,7 @@ export default {
           .then(() => {
             this.productLoading = false;
           });
-      }, 3000);
+      }, 1000);
     },
   },
   watch: {

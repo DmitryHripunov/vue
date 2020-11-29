@@ -34,7 +34,7 @@
 
 <script>
 import numberFormat from '@/helpers/numberFormat';
-import { mapActions } from 'vuex';
+// import { mapActions } from 'vuex';
 import Counter from '@/components/Counter.vue';
 
 export default {
@@ -55,9 +55,10 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['deleteProductFromCart']),
+    // ...mapActions(['deleteProductFromCart']),
     deleteProduct() {
-      this.deleteProductFromCart({ productId: this.item.product.id });
+      this.$store.dispatch('deleteProductFromCart', { productId: this.item.productId });
+      // this.deleteProductFromCart({ productId: this.item.productId });
     },
   },
 };

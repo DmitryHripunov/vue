@@ -4,7 +4,7 @@
       <h1 class="content__title">Каталог</h1>
       <span class="content__info">
         {{ this.countProducts }}
-        товаров
+        {{ declText(this.countProducts, PRODUCT_TEXT) }}
       </span>
     </div>
 
@@ -42,6 +42,9 @@ import ProductFilter from '@/components/ProductFilter.vue';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import Preloader from '@/components/Preloader.vue';
+import declText from '@/helpers/declText';
+
+const PRODUCT_TEXT = ['товар', 'товара', 'товаров'];
 
 export default {
   components: {
@@ -66,6 +69,9 @@ export default {
 
       productsLoading: false,
       productsLoadingFailed: false,
+
+      declText,
+      PRODUCT_TEXT,
     };
   },
   computed: {
@@ -120,6 +126,9 @@ export default {
       deep: true,
     },
   },
+  // filters: {
+  //   declText,
+  // },
   created() {
     this.loadProducts();
   },
