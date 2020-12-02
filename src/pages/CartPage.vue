@@ -39,11 +39,12 @@
             Итого: <span> {{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <button class="cart__button button button--primery" type="submit"
-          :disabled="totalPrice === 0"
+          <router-link tag="button" :to="{name: 'order'}"
+            class="cart__button button button--primery" type="submit"
+            :disabled="totalPrice === 0"
           >
             Оформить заказ
-          </button>
+          </router-link>
         </div>
       </form>
     </section>
@@ -53,6 +54,7 @@
 <script>
 import CartItem from '@/components/CartItem.vue';
 import numberFormat from '@/helpers/numberFormat';
+import declTextMixin from '@/mixins/declTextMixin';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -60,14 +62,8 @@ export default {
 
   filters: {
     numberFormat,
-    declText: (number, titles) => {
-      const cases = [2, 0, 1, 1, 1, 2];
-      return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[
-        (number % 10 < 5) ? number % 10 : 5]
-      ];
-    },
   },
-
+  mixins: [declTextMixin],
   computed: {
     ...mapGetters({
       products: 'cartDetailProducts',

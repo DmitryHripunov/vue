@@ -42,6 +42,7 @@ import ProductFilter from '@/components/ProductFilter.vue';
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import Preloader from '@/components/Preloader.vue';
+import declTextMixin from '@/mixins/declTextMixin';
 
 export default {
   components: {
@@ -120,14 +121,7 @@ export default {
       deep: true,
     },
   },
-  filters: {
-    declText: (number, titles) => {
-      const cases = [2, 0, 1, 1, 1, 2];
-      return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[
-        (number % 10 < 5) ? number % 10 : 5]
-      ];
-    },
-  },
+  mixins: [declTextMixin],
   created() {
     this.loadProducts();
   },
