@@ -45,6 +45,12 @@
           >
             Оформить заказ
           </router-link>
+
+          <router-link v-if="totalPrice === 0" tag="button" :to="{name: 'main'}"
+                       class="cart__button button button--primery"
+          >
+            На главную
+          </router-link>
         </div>
       </form>
     </section>

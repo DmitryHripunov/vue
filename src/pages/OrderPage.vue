@@ -83,49 +83,49 @@
           />
         </div>
 
-        <div class="cart__options">
-          <h3 class="cart__title">Доставка</h3>
-          <ul class="cart__options options">
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only"
-                       type="radio" name="delivery" value="0" checked="">
-                <span class="options__value">
-                    Самовывоз <b>бесплатно</b>
-                  </span>
-              </label>
-            </li>
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only"
-                           type="radio" name="delivery" value="500">
-                <span class="options__value">
-                    Курьером <b>500 ₽</b>
-                  </span>
-              </label>
-            </li>
-          </ul>
-
-          <h3 class="cart__title">Оплата</h3>
-          <ul class="cart__options options">
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only" type="radio" name="pay" value="card">
-                <span class="options__value">
-                    Картой при получении
-                  </span>
-              </label>
-            </li>
-            <li class="options__item">
-              <label class="options__label">
-                <input class="options__radio sr-only" type="radio" name="pay" value="cash">
-                <span class="options__value">
-                    Наличными при получении
-                  </span>
-              </label>
-            </li>
-          </ul>
-        </div>
+<!--      <div class="cart__options">-->
+<!--          <h3 class="cart__title">Доставка</h3>-->
+<!--          <ul class="cart__options options">-->
+<!--            <li class="options__item">-->
+<!--              <label class="options__label">-->
+<!--                <input class="options__radio sr-only"-->
+<!--                       type="radio" name="delivery" value="0" checked="">-->
+<!--                <span class="options__value">-->
+<!--                    Самовывоз <b>бесплатно</b>-->
+<!--                  </span>-->
+<!--              </label>-->
+<!--            </li>-->
+<!--            <li class="options__item">-->
+<!--              <label class="options__label">-->
+<!--                <input class="options__radio sr-only"-->
+<!--                           type="radio" name="delivery" value="500">-->
+<!--                <span class="options__value">-->
+<!--                    Курьером <b>500 ₽</b>-->
+<!--                  </span>-->
+<!--              </label>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--  -->
+<!--          <h3 class="cart__title">Оплата</h3>-->
+<!--          <ul class="cart__options options">-->
+<!--            <li class="options__item">-->
+<!--              <label class="options__label">-->
+<!--                <input class="options__radio sr-only" type="radio" name="pay" value="card">-->
+<!--                <span class="options__value">-->
+<!--                    Картой при получении-->
+<!--                  </span>-->
+<!--              </label>-->
+<!--            </li>-->
+<!--            <li class="options__item">-->
+<!--              <label class="options__label">-->
+<!--                <input class="options__radio sr-only" type="radio" name="pay" value="cash">-->
+<!--                <span class="options__value">-->
+<!--                    Наличными при получении-->
+<!--                  </span>-->
+<!--              </label>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
       </div>
 
       <div class="cart__block">
@@ -134,7 +134,7 @@
         </ul>
 
         <div class="cart__total">
-          <p>Доставка: <b>500 ₽</b></p>
+<!--          <p>Доставка: <b>500 ₽</b></p>-->
           <p>Итого:
             <b>{{ countProduct }}</b>
             {{ countProduct | declText(['товар', 'товара', 'товаров']) }}

@@ -3,15 +3,6 @@
     <Preloader />
   </div>
 
-  <div class="error-wrapper" style="height: 55vh" v-else-if="productLoadingField">
-    <h2 class="error-heading">
-      Ой!<br> Что-то пошло не так
-    </h2>
-    <button class="error-button" @click.prevent="loadProduct">
-      перезагрузить
-    </button>
-  </div>
-
   <main class="content container" v-else-if="productsData">
     <div class="content__top">
       <ul class="breadcrumbs">
@@ -74,7 +65,12 @@
             <div class="item__row">
               <Counter :amount.sync="amount" />
 
-              <button class="button button--primery" type="submit"
+              <router-link tag="button"
+                           class="button button--primery" v-if="productAdded" :to="{name: 'main'}">
+                На главную
+              </router-link>
+
+              <button v-if="!productAdded" class="button button--primery" type="submit"
                 :disabled="productAddSending || amount === 0 || amount === ''"
               >
                 <span v-if="!productAddSending">В корзину</span>
@@ -84,6 +80,11 @@
               <div v-show="productAdded">
                 <span > Товар добавлен</span>
               </div>
+
+              <router-link tag="button"
+                           class="button button--primery" v-if="productAdded" :to="{name: 'cart'}">
+                В корзину
+              </router-link>
             </div>
           </form>
         </div>
@@ -197,7 +198,7 @@ export default {
     },
     loadProduct() {
       this.productLoading = true;
-      this.productLoadingField = false;
+      // this.productLoadingField = false;
       clearTimeout(this.loadProductTimer);
       this.loadProductTimer = setTimeout(() => {
         axios.get(`${API_BASE_URL}/api/products/${this.$route.params.id}`)
@@ -205,7 +206,7 @@ export default {
             this.productsData = response.data;
           })
           .catch(() => {
-            this.productLoadingField = true;
+            this.$router.push('/404');
           })
           .then(() => {
             this.productLoading = false;
