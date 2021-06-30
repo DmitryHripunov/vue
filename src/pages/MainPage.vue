@@ -12,13 +12,14 @@
       <ProductFilter v-bind.sync="filters" />
 
       <section class="catalog">
-        <ProductList :products="products" v-if="!productsLoading"/>
+        <ProductList :products="products" v-if="!productsLoading &&
+        !productsLoadingFailed"/>
 
         <Preloader v-if="productsLoading" />
 
         <div class="error-wrapper" v-if="productsLoadingFailed">
           <h2 class="error-heading">
-            Ой!<br> Что-то пошло не так
+            Что-то пошло не так
           </h2>
           <button class="error-button" @click.prevent="loadProducts">
             перезагрузить
@@ -54,8 +55,8 @@ export default {
   data() {
     return {
       filters: {
-        filterPriceFrom: 0,
-        filterPriceTo: 0,
+        filterPriceFrom: 1,
+        filterPriceTo: 1000000,
         filterCategoryId: 0,
         filterCheckedColor: 0,
       },
@@ -94,8 +95,8 @@ export default {
             colorId: this.filters.filterCheckedColor,
             page: this.page,
             limit: this.productPerPage,
-            // minPrice: this.filters.filterPriceFrom,
-            // maxPrice: this.filters.filterPriceTo,
+            minPrice: this.filters.filterPriceFrom,
+            maxPrice: this.filters.filterPriceTo,
           },
         })
           .then((response) => {
@@ -107,7 +108,7 @@ export default {
           .then(() => {
             this.productsLoading = false;
           });
-      }, 1000);
+      });
     },
   },
   watch: {

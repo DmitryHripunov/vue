@@ -28,7 +28,7 @@
       <div class="item__pics pics">
         <div class="pics__wrapper">
           <img
-               :src="productsData.image.file.url"
+               :src="product.preview.file.url"
                :alt="product.title"
             >
         </div>

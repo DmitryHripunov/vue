@@ -1,5 +1,5 @@
 <template>
-  <ul class="colors">
+  <ul class="colors ">
     <li class="colors__item" v-for="color in colors" :key="color.id">
       <label class="colors__label">
         <input

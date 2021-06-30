@@ -36,7 +36,7 @@
             class="form__select"
             type="text"
             name="category"
-            v-model.number="currentCategoryId"
+            v-model="currentCategoryId"
           >
             <option value="0">Все категории</option>
             <option
@@ -52,17 +52,50 @@
 
       <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
+          <ul class="colors ">
+            <li class="colors__item"
+              v-for="color in colors" :key="color.id"
+            >
+              <label class="colors__label">
+                <input
+                  class="colors__radio sr-only"
+                  type="radio"
+                  :value="color.id"
+                  v-model="currentCheckedColor"
+                />
+                <span
+                  class="colors__value"
+                  :style="{ 'background-color': color.code }"
+                ></span>
+              </label>
+            </li>
+          </ul>
+      </fieldset>
 
-        <ProductFilterColors
-          :colors="colors"
-          :color-checked.sync="currentCheckedColor"
-        />
-
+      <fieldset class="form__block">
+        <legend class="form__legend">Объемб в ГБ</legend>
+          <ul class="check-list">
+            <li class="check-list__item">
+              <label class="check-list__label">
+                  <input
+                  class="check-list__check sr-only"
+                  type="checkbox"
+                  name="volume"
+                  value="memory.offers"
+                  checked="">
+                <span class="check-list__desc">
+                  8
+                  <span>(313)</span>
+                </span>
+              </label>
+            </li>
+          </ul>
       </fieldset>
 
       <button class="filter__submit button button--primery" type="submit">
         Применить
       </button>
+
       <button
         class="filter__reset button button--second"
         type="button"
@@ -77,17 +110,17 @@
 <script>
 import axios from 'axios';
 import { API_BASE_URL } from '@/config';
-import ProductFilterColors from './ProductFilterColors.vue';
 
 export default {
-  components: { ProductFilterColors },
   data() {
     return {
       currentCheckedColor: 0,
-      currentPriceFrom: 0,
-      currentPriceTo: 0,
-      currentCategoryId: 0,
+      currentPriceFrom: 1,
+      currentPriceTo: 1000000,
+      // currentCategoryId: 0,
+      currentMemory: 0,
 
+      memoryData: null,
       categoriesData: null,
       colorsData: null,
     };
@@ -99,11 +132,23 @@ export default {
     'filterCheckedColor',
   ],
   computed: {
+    currentCategoryId: {
+      get() {
+        return this.filterCategoryId;
+      },
+      set(value) {
+        this.$emit('update:filterCategoryId', value);
+      },
+    },
+
     categories() {
       return this.categoriesData ? this.categoriesData.items : [];
     },
     colors() {
       return this.colorsData ? this.colorsData.items : [];
+    },
+    memorys() {
+      return this.memoryData ? this.memoryData : [];
     },
   },
   watch: {
@@ -113,9 +158,9 @@ export default {
     filterPriceTo(value) {
       this.currentPriceTo = value;
     },
-    filterCategoryId(value) {
-      this.currentCategoryId = value;
-    },
+    // filterCategoryId(value) {
+    //   this.currentCategoryId = value;
+    // },
     filterCheckedColor(value) {
       this.currentCheckedColor = value;
     },
@@ -124,15 +169,16 @@ export default {
     submit() {
       this.$emit('update:filterPriceFrom', this.currentPriceFrom);
       this.$emit('update:filterPriceTo', this.currentPriceTo);
-      this.$emit('update:filterCategoryId', this.currentCategoryId);
+      // this.$emit('update:filterCategoryId', this.currentCategoryId);
       this.$emit('update:filterCheckedColor', this.currentCheckedColor);
     },
     reset() {
-      this.$emit('update:filterPriceFrom', 0);
-      this.$emit('update:filterPriceTo', 0);
+      this.$emit('update:filterPriceFrom', 1);
+      this.$emit('update:filterPriceTo', 1000000);
       this.$emit('update:filterCategoryId', 0);
       this.$emit('update:filterCheckedColor', 0);
     },
+
     loadCategories() {
       axios.get(`${API_BASE_URL}/api/productCategories`)
         .then((response) => {

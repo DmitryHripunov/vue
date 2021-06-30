@@ -58,7 +58,7 @@ export default new Vuex.Store({
           ...item,
           product: {
             ...product,
-            image: product.image.file.url,
+            image: product.preview.file.url,
           },
         };
       });
@@ -94,8 +94,8 @@ export default new Vuex.Store({
       })
         .then((response) => {
           if (!context.state.userAccessKey) {
-            localStorage.setItem('userAccessKey', response.data.user.accessKey);
-            context.commit('updateUserAccessKey', response.data.user.accessKey);
+            // localStorage.setItem('userAccessKey', response.data.user.accessKey);
+            // context.commit('updateUserAccessKey', response.data.user.accessKey);
           }
           context.commit('updateCartProductsData', response.data.items);
           context.commit('syncCartProducts');
