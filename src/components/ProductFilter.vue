@@ -50,10 +50,15 @@
         </label>
       </fieldset>
 
-      <ProductFilterColors
-        :colors="colors"
-        :color-checked.sync="currentCheckedColor"
-      />
+      <fieldset class="form__block">
+        <legend class="form__legend">Цвет</legend>
+
+        <ProductFilterColors
+          :colors="colors"
+          :color-checked.sync="currentCheckedColor"
+        />
+
+      </fieldset>
 
       <button class="filter__submit button button--primery" type="submit">
         Применить

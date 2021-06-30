@@ -21,6 +21,22 @@
       :colors="product.colors"
       :color-checked.sync="currentCheckedColor"
     /> -->
+
+      <ul class="colors">
+        <li class="colors__item" v-for="color in product.colors" :key="color.id">
+          <label class="colors__label">
+            <input
+              class="colors__radio sr-only"
+              type="radio"
+              :value="color.id"
+            />
+            <span
+              class="colors__value"
+              :style="{ 'background-color': color.code }"
+            ></span>
+          </label>
+        </li>
+    </ul>
   </li>
 </template>
 

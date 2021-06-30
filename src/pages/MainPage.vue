@@ -90,12 +90,12 @@ export default {
       this.loadProductTimer = setTimeout(() => {
         axios.get(`${API_BASE_URL}/api/products`, {
           params: {
+            categoryId: this.filters.filterCategoryId,
+            colorId: this.filters.filterCheckedColor,
             page: this.page,
             limit: this.productPerPage,
-            categoryId: this.filters.filterCategoryId,
             // minPrice: this.filters.filterPriceFrom,
             // maxPrice: this.filters.filterPriceTo,
-            colorId: this.filters.filterCheckedColor,
           },
         })
           .then((response) => {

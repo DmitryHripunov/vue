@@ -17,3 +17,4 @@ git commit -m "deploy"
 git push -f https://github.com/DmitryHripunov/technosaurus.git master:gh-pages
 
 cd -
+# ссылка на приложение https://dmitryhripunov.github.io/technosaurus/
