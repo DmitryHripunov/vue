@@ -17,15 +17,15 @@
       {{ product.price | numberFormat }} ₽
     </span>
 
-    <ProductFilterColors
+    <!-- <ProductFilterColors
       :colors="product.colors"
       :color-checked.sync="currentCheckedColor"
-    />
+    /> -->
   </li>
 </template>
 
 <script>
-import ProductFilterColors from '@/components/ProductFilterColors.vue';
+// import ProductFilterColors from '@/components/ProductFilterColors.vue';
 import numberFormat from '@/helpers/numberFormat';
 
 export default {
@@ -35,7 +35,7 @@ export default {
     };
   },
   props: ['product'],
-  components: { ProductFilterColors },
+  // components: { ProductFilterColors },
   filters: {
     numberFormat,
   },

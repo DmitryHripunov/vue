@@ -74,7 +74,7 @@ export default {
       return this.productsData
         ? this.productsData.items.map((product) => ({
           ...product,
-          image: product.image.file.url,
+          image: product.preview.file.url,
         }))
         : [];
     },
@@ -93,8 +93,8 @@ export default {
             page: this.page,
             limit: this.productPerPage,
             categoryId: this.filters.filterCategoryId,
-            minPrice: this.filters.filterPriceFrom,
-            maxPrice: this.filters.filterPriceTo,
+            // minPrice: this.filters.filterPriceFrom,
+            // maxPrice: this.filters.filterPriceTo,
             colorId: this.filters.filterCheckedColor,
           },
         })
