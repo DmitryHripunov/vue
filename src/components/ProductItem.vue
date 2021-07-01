@@ -26,7 +26,7 @@
           class="colors__radio sr-only"
           type="radio"
           v-model="colorChosen"
-          :value="color.id">
+          :value="color.color.code">
 
           <span class="colors__value"
           :style="{'background-color': color.color.code}">
@@ -43,28 +43,29 @@ import numberFormat from '@/helpers/numberFormat';
 export default {
   data() {
     return {
-      // currentCheckedColor: null,
+      currentCheckedColor: 0,
     };
   },
-  props: ['product', 'colorChecked'],
+  props: ['product'],
 
   filters: {
     numberFormat,
   },
-  watch: {
-    colorChecked(value) {
-      this.currentCheckedColor = value;
-    },
-  },
   computed: {
     colorChosen: {
       get() {
-        return this.colorChecked;
+        return this.currentCheckedColor;
       },
       set(value) {
-        this.$emit('update:colorChecked', value);
+        this.currentCheckedColor = value;
       },
     },
+
   },
+  // watch: {
+  //   colorChecked(value) {
+  //     this.currentCheckedColor = value;
+  //   },
+  // },
 };
 </script>

@@ -117,7 +117,7 @@ export default {
       currentCheckedColor: 0,
       currentPriceFrom: 1,
       currentPriceTo: 1000000,
-      // currentCategoryId: 0,
+      // currentCategoryId: 0, // для фильтра без перезагрузки
       currentMemory: 0,
 
       memoryData: null,
@@ -158,7 +158,7 @@ export default {
     filterPriceTo(value) {
       this.currentPriceTo = value;
     },
-    // filterCategoryId(value) {
+    // filterCategoryId(value) { // для фильтра без перезагрузки
     //   this.currentCategoryId = value;
     // },
     filterCheckedColor(value) {
@@ -169,7 +169,8 @@ export default {
     submit() {
       this.$emit('update:filterPriceFrom', this.currentPriceFrom);
       this.$emit('update:filterPriceTo', this.currentPriceTo);
-      // this.$emit('update:filterCategoryId', this.currentCategoryId);
+      // eslint-disable-next-line max-len
+      // this.$emit('update:filterCategoryId', this.currentCategoryId); // для фильтра без перезагрузки
       this.$emit('update:filterCheckedColor', this.currentCheckedColor);
     },
     reset() {
