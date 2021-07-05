@@ -12,8 +12,10 @@
       <ProductFilter v-bind.sync="filters" />
 
       <section class="catalog">
-        <ProductList :products="products" v-if="!productsLoading &&
-        !productsLoadingFailed"/>
+        <ProductList :products="products"
+          v-if="!productsLoading &&
+          !productsLoadingFailed"
+        />
 
         <Preloader v-if="productsLoading" />
 
