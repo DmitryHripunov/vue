@@ -7,15 +7,33 @@
       </picture>
     </router-link>
 
-    <h3 class="catalog__title">
-      <a href="#">
-        {{ product.title }}
-      </a>
-    </h3>
+    <template
+      v-if="!currentCheckedProp && !currentCheckedColor"
+    >
+      <h3 class="catalog__title">
+        <router-link :to="{name: 'product', params: {id: product.id}}">
+          {{ product.title }}
+        </router-link>
+      </h3>
 
-    <span class="catalog__price">
-      {{ product.price | numberFormat }} ₽
-    </span>
+      <span class="catalog__price">
+        {{ product.price | numberFormat }} ₽
+      </span>
+    </template>
+
+    <template
+      v-if="currentCheckedProp"
+    >
+      <h3 class="catalog__title">
+        <router-link :to="{name: 'product', params: {id: product.id}}">
+          {{ currentCheckedProp }}
+        </router-link>
+      </h3>
+
+      <span class="catalog__price">
+        {{ currentCheckedProp.price| numberFormat }} ₽
+      </span>
+    </template>
 
     <ul class="colors colors--black">
       <li class="colors__item"
@@ -34,6 +52,39 @@
         </label>
       </li>
     </ul>
+
+    <ul class="sizes" style="margin-top: 16px;"
+      v-if="offers && offers.length > 1"
+    >
+      <li class="sizes__item"
+        v-for="offer in product.offers"
+        :key="offer.id"
+      >
+        <div
+          v-for="(prop, index) in offer.propValues"
+          :key="index"
+        >
+          <label class="sizes__label">
+            <input class="sizes__radio sr-only"
+              type="radio"
+              :value="offer.title"
+              :price="offer.price"
+              v-model="propChosen"
+            >
+
+            <!-- <input class="sizes__radio sr-only"
+              type="hidden"
+              :price="offer.price"
+              v-model="priceChosen"
+            > -->
+
+            <span class="sizes__value">
+              {{ prop.value }}
+            </span>
+          </label>
+        </div>
+      </li>
+    </ul>
   </li>
 </template>
 
@@ -43,10 +94,12 @@ import numberFormat from '@/helpers/numberFormat';
 export default {
   data() {
     return {
-      currentCheckedColor: 0,
+      currentCheckedColor: null,
+      currentCheckedProp: null,
+      currentCheckedPrice: null,
     };
   },
-  props: ['product'],
+  props: ['product', 'offers'],
 
   filters: {
     numberFormat,
@@ -60,12 +113,26 @@ export default {
         this.currentCheckedColor = value;
       },
     },
-
+    propChosen: {
+      get() {
+        return [
+          this.currentCheckedProp,
+          this.currentCheckedPrice,
+        ];
+      },
+      set(value, price) {
+        this.currentCheckedProp = value;
+        this.currentCheckedPrice = price;
+      },
+    },
+    // priceChosen: {
+    //   get() {
+    //     return this.currentCheckedPrice;
+    //   },
+    //   set(price) {
+    //     this.currentCheckedPrice = price;
+    //   },
+    // },
   },
-  // watch: {
-  //   colorChecked(value) {
-  //     this.currentCheckedColor = value;
-  //   },
-  // },
 };
 </script>
