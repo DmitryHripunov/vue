@@ -10,8 +10,7 @@
     </router-link>
 
     <template
-      v-if="!currentCheckedProps &&
-        !currentCheckedColor"
+      v-if="!currentCheckedProps"
     >
       <h3 class="catalog__title">
         <router-link
@@ -33,14 +32,12 @@
         <router-link
           :to="{ name: 'product', params: { id: product.id } }"
         >
-          {{ currentCheckedProps }}
+          {{ currentCheckedProps[0] }}
         </router-link>
       </h3>
 
-      <span class="catalog__price"
-        v-for="price in productOffers" :key="price.id"
-      >
-        {{ price.price | numberFormat }} ₽
+      <span class="catalog__price">
+        {{ currentCheckedProps[1] | numberFormat }} ₽
       </span>
     </template>
 
@@ -77,7 +74,7 @@
             <input
               class="sizes__radio sr-only"
               type="radio"
-              :value="offer.title"
+              :value="[offer.title, offer.price]"
               v-model="propsChosen"
             />
             <span class="sizes__value"> {{ prop.value }} </span>
@@ -118,9 +115,6 @@ export default {
       set(value) {
         this.currentCheckedProps = value;
       },
-    },
-    productOffers() {
-      return this.offers;
     },
   },
 };
