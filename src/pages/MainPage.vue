@@ -57,8 +57,8 @@ export default {
   data() {
     return {
       filters: {
-        filterPriceFrom: 1,
-        filterPriceTo: 1000000,
+        filterPriceFrom: null,
+        filterPriceTo: null,
         filterCategoryId: 0,
         filterCheckedColor: 0,
       },

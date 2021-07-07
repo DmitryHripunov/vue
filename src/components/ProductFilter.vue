@@ -11,6 +11,7 @@
         <legend class="form__legend">Цена</legend>
         <label class="form__label form__label--price">
           <input
+            placeholder="0"
             class="form__input"
             type="text"
             name="min-price"
@@ -20,6 +21,7 @@
         </label>
         <label class="form__label form__label--price">
           <input
+            placeholder="1 000 000"
             class="form__input"
             type="text"
             name="max-price"
@@ -115,8 +117,8 @@ export default {
   data() {
     return {
       currentCheckedColor: 0,
-      currentPriceFrom: 1,
-      currentPriceTo: 1000000,
+      currentPriceFrom: null,
+      currentPriceTo: null,
       // currentCategoryId: 0,
       currentMemory: 0,
 
@@ -173,8 +175,8 @@ export default {
       this.$emit('update:filterCheckedColor', this.currentCheckedColor);
     },
     reset() {
-      this.$emit('update:filterPriceFrom', 1);
-      this.$emit('update:filterPriceTo', 1000000);
+      this.$emit('update:filterPriceFrom', null);
+      this.$emit('update:filterPriceTo', null);
       this.$emit('update:filterCategoryId', 0);
       this.$emit('update:filterCheckedColor', 0);
     },
