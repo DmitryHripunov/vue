@@ -41,7 +41,12 @@
       </span>
     </template>
 
-    <ul class="colors colors--black">
+    <ProductFilterColor
+      :class="{'colors--black': true}"
+      :product="product"
+    />
+
+    <!-- <ul class="colors colors--black">
       <li class="colors__item" v-for="color in product.colors" :key="color.id">
         <label class="colors__label">
           <input
@@ -58,7 +63,7 @@
           </span>
         </label>
       </li>
-    </ul>
+    </ul> -->
 
     <ul class="sizes sizes--primery"
       style="margin-top: 16px"
@@ -87,27 +92,29 @@
 
 <script>
 import numberFormat from '@/helpers/numberFormat';
+import ProductFilterColor from './ProductFilterColors.vue';
 
 export default {
   data() {
     return {
-      currentCheckedColor: null,
+      // currentCheckedColor: null,
       currentCheckedProps: null,
     };
   },
+  components: { ProductFilterColor },
   props: ['product', 'offers'],
   filters: {
     numberFormat,
   },
   computed: {
-    colorChosen: {
-      get() {
-        return this.currentCheckedColor;
-      },
-      set(value) {
-        this.currentCheckedColor = value;
-      },
-    },
+    // colorChosen: {
+    //   get() {
+    //     return this.currentCheckedColor;
+    //   },
+    //   set(value) {
+    //     this.currentCheckedColor = value;
+    //   },
+    // },
     propsChosen: {
       get() {
         return this.currentCheckedProps;

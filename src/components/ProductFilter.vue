@@ -56,13 +56,13 @@
         <legend class="form__legend">Цвет</legend>
           <ul class="colors ">
             <li class="colors__item"
-              v-for="color in colors" :key="color.id"
+              v-for="color in colorsData" :key="color.id"
             >
               <label class="colors__label">
                 <input
                   class="colors__radio sr-only"
                   type="radio"
-                  :value="color.id"
+                  :value="color.code"
                   v-model="currentCheckedColor"
                 />
                 <span
@@ -77,19 +77,28 @@
       <fieldset class="form__block">
         <legend class="form__legend">Объемб в ГБ</legend>
           <ul class="check-list">
-            <li class="check-list__item">
-              <label class="check-list__label">
-                  <input
-                  class="check-list__check sr-only"
-                  type="checkbox"
-                  name="volume"
-                  value="memory.offers"
-                  checked="">
-                <span class="check-list__desc">
-                  8
-                  <span>(313)</span>
-                </span>
-              </label>
+            <li class="check-list__item"
+              v-for="offer in propsData" :key="offer.id"
+            >
+              <div v-for="value in offer.offers" :key="value.id">
+                <template v-if="value.propValues && value.propValues.length">
+                  <div v-for="prop in value.propValues" :key="prop.id">
+                      <label class="check-list__label">
+                          <input
+                          class="check-list__check sr-only"
+                          type="checkbox"
+                          :value="prop.value"
+                          :checked="currentProps"
+                          v-model="currentProps"
+                          >
+                        <span class="check-list__desc">
+                          {{ prop.value }}
+                          <span>(313)</span>
+                        </span>
+                      </label>
+                  </div>
+                </template>
+              </div>
             </li>
           </ul>
       </fieldset>
@@ -116,15 +125,15 @@ import { API_BASE_URL } from '@/config';
 export default {
   data() {
     return {
-      currentCheckedColor: 0,
+      // currentCheckedColor: 0,
+      // currentCategoryId: 0,
       currentPriceFrom: null,
       currentPriceTo: null,
-      // currentCategoryId: 0,
-      currentMemory: 0,
-
-      memoryData: null,
       categoriesData: null,
+      currentProps: [],
+
       colorsData: null,
+      productsData: null,
     };
   },
   props: [
@@ -132,6 +141,7 @@ export default {
     'filterPriceTo',
     'filterCategoryId',
     'filterCheckedColor',
+    'filterProps',
   ],
   computed: {
     currentCategoryId: {
@@ -142,16 +152,23 @@ export default {
         this.$emit('update:filterCategoryId', value);
       },
     },
-
+    currentCheckedColor: {
+      get() {
+        return this.filterCheckedColor;
+      },
+      set(value) {
+        this.$emit('update:filterCheckedColor', value);
+      },
+    },
     categories() {
       return this.categoriesData ? this.categoriesData.items : [];
     },
-    colors() {
-      return this.colorsData ? this.colorsData.items : [];
+    propsData() {
+      return this.productsData ? this.productsData.items : [];
     },
-    memorys() {
-      return this.memoryData ? this.memoryData : [];
-    },
+    // colors() {
+    //   return this.colorsData ? this.colorsData.items : [];
+    // },
   },
   watch: {
     filterPriceFrom(value) {
@@ -160,25 +177,30 @@ export default {
     filterPriceTo(value) {
       this.currentPriceTo = value;
     },
+    filterProps(value) {
+      this.currentProps = value;
+    },
     // filterCategoryId(value) {
     //   this.currentCategoryId = value;
     // },
-    filterCheckedColor(value) {
-      this.currentCheckedColor = value;
-    },
+    // filterCheckedColor(value) {
+    //   this.currentCheckedColor = value;
+    // },
   },
   methods: {
     submit() {
       this.$emit('update:filterPriceFrom', this.currentPriceFrom);
       this.$emit('update:filterPriceTo', this.currentPriceTo);
+      this.$emit('update:filterProps', this.currentProps);
       // this.$emit('update:filterCategoryId', this.currentCategoryId);
-      this.$emit('update:filterCheckedColor', this.currentCheckedColor);
+      // this.$emit('update:filterCheckedColor', this.currentCheckedColor);
     },
     reset() {
       this.$emit('update:filterPriceFrom', null);
       this.$emit('update:filterPriceTo', null);
       this.$emit('update:filterCategoryId', 0);
       this.$emit('update:filterCheckedColor', 0);
+      this.$emit('update:filterProps', null);
     },
 
     loadCategories() {
@@ -190,13 +212,21 @@ export default {
     loadColors() {
       axios.get(`${API_BASE_URL}/api/colors`)
         .then((response) => {
-          this.colorsData = response.data;
+          this.colorsData = response.data.items;
+        });
+    },
+
+    loadProducts() {
+      axios.get(`${API_BASE_URL}/api/products`)
+        .then((response) => {
+          this.productsData = response.data;
         });
     },
   },
   created() {
     this.loadCategories();
     this.loadColors();
+    this.loadProducts();
   },
 };
 

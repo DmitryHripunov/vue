@@ -9,10 +9,13 @@
     </div>
 
     <div class="content__catalog">
-      <ProductFilter v-bind.sync="filters" />
+      <ProductFilter
+        v-bind.sync="filters"
+      />
 
       <section class="catalog">
-        <ProductList :products="products"
+        <ProductList
+          :products="products"
           v-if="!productsLoading &&
           !productsLoadingFailed"
         />
@@ -61,6 +64,7 @@ export default {
         filterPriceTo: null,
         filterCategoryId: 0,
         filterCheckedColor: 0,
+        filterProps: [],
       },
 
       page: 1,
@@ -99,6 +103,7 @@ export default {
             limit: this.productPerPage,
             minPrice: this.filters.filterPriceFrom,
             maxPrice: this.filters.filterPriceTo,
+            propsId: this.filters.filterProps,
           },
         })
           .then((response) => {
