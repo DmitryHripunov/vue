@@ -41,29 +41,10 @@
       </span>
     </template>
 
-    <ProductFilterColor
+    <!-- <ProductFilterColor
       :class="{'colors--black': true}"
       :product="product"
-    />
-
-    <!-- <ul class="colors colors--black">
-      <li class="colors__item" v-for="color in product.colors" :key="color.id">
-        <label class="colors__label">
-          <input
-            class="colors__radio sr-only"
-            type="radio"
-            v-model="colorChosen"
-            :value="color.id"
-          />
-
-          <span
-            class="colors__value"
-            :style="{ 'background-color': color.color.code }"
-          >
-          </span>
-        </label>
-      </li>
-    </ul> -->
+    /> -->
 
     <ul class="sizes sizes--primery"
       style="margin-top: 16px"
@@ -92,29 +73,20 @@
 
 <script>
 import numberFormat from '@/helpers/numberFormat';
-import ProductFilterColor from './ProductFilterColors.vue';
+// import ProductFilterColor from './ProductFilterColors.vue';
 
 export default {
   data() {
     return {
-      // currentCheckedColor: null,
       currentCheckedProps: null,
     };
   },
-  components: { ProductFilterColor },
+  // components: { ProductFilterColor },
   props: ['product', 'offers'],
   filters: {
     numberFormat,
   },
   computed: {
-    // colorChosen: {
-    //   get() {
-    //     return this.currentCheckedColor;
-    //   },
-    //   set(value) {
-    //     this.currentCheckedColor = value;
-    //   },
-    // },
     propsChosen: {
       get() {
         return this.currentCheckedProps;

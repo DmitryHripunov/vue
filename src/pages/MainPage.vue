@@ -31,6 +31,17 @@
           </button>
         </div>
 
+        <div class="error-wrapper"
+          v-if="this.countProducts === 0 && !productsLoading"
+        >
+          <h2 class="error-heading">
+            Пусто
+          </h2>
+          <button class="error-button" @click.prevent="reset">
+            Сбросить Фильтр
+          </button>
+        </div>
+
         <BasePagination
           v-model="page"
           :count="countProducts"
@@ -49,6 +60,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '@/config';
 import Preloader from '@/components/Preloader.vue';
 import declTextMixin from '@/mixins/declTextMixin';
+import Qs from 'qs';
 
 export default {
   components: {
@@ -60,11 +72,11 @@ export default {
   data() {
     return {
       filters: {
-        filterPriceFrom: null,
-        filterPriceTo: null,
+        filterPriceFrom: 1,
+        filterPriceTo: 1000000,
+        filterCheckedColor: null,
         filterCategoryId: 0,
-        filterCheckedColor: 0,
-        filterProps: [],
+        productProps: {},
       },
 
       page: 1,
@@ -99,11 +111,18 @@ export default {
           params: {
             categoryId: this.filters.filterCategoryId,
             colorId: this.filters.filterCheckedColor,
-            page: this.page,
-            limit: this.productPerPage,
             minPrice: this.filters.filterPriceFrom,
             maxPrice: this.filters.filterPriceTo,
-            propsId: this.filters.filterProps,
+            limit: this.productPerPage,
+            page: this.page,
+            props: this.filters.productProps,
+            // props: {
+            //   battery_power: ['Встроенный аккумулятор'],
+            // },
+          },
+          /* eslint-disable */
+          paramsSerializer: function (params) {
+            return Qs.stringify(params, { arrayFormat: 'brackets' });
           },
         })
           .then((response) => {

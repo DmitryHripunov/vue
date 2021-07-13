@@ -29,19 +29,15 @@ export default new Vuex.Store({
         items.amount = amount;
       }
     },
-
     deleteCartProduct(state, productId) {
       state.cartProducts = state.cartProducts.filter((item) => item.productId !== productId);
     },
-
     updateUserAccessKey(state, accessKey) {
       state.userAccessKey = accessKey;
     },
-
     updateCartProductsData(state, productsData) {
       state.cartProductsData = productsData;
     },
-
     syncCartProducts(state) {
       state.cartProducts = state.cartProductsData.map((item) => ({
         productId: item.product.id,
@@ -63,13 +59,11 @@ export default new Vuex.Store({
         };
       });
     },
-
     cartTotalPrice(state, getters) {
       return getters.cartDetailProducts.reduce(
         (acc, item) => (item.product.price * item.amount) + acc, 0,
       );
     },
-
     countProducts(state, getters) {
       return getters.cartDetailProducts.length;
     },

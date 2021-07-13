@@ -13,7 +13,7 @@
           <input
             placeholder="0"
             class="form__input"
-            type="text"
+            type="number"
             name="min-price"
             v-model.number="currentPriceFrom"
           />
@@ -23,7 +23,7 @@
           <input
             placeholder="1 000 000"
             class="form__input"
-            type="text"
+            type="number"
             name="max-price"
             v-model.number="currentPriceTo"
           />
@@ -52,7 +52,7 @@
         </label>
       </fieldset>
 
-      <fieldset class="form__block">
+      <!-- <fieldset class="form__block">
         <legend class="form__legend">Цвет</legend>
           <ul class="colors ">
             <li class="colors__item"
@@ -72,36 +72,35 @@
               </label>
             </li>
           </ul>
-      </fieldset>
+      </fieldset> -->
 
-      <fieldset class="form__block">
-        <legend class="form__legend">Объемб в ГБ</legend>
+    <template v-if="filterCategoryId > 0">
+      <fieldset class="form__block"
+        v-for="prop in categoryProps" :key="prop.id"
+      >
+        <legend class="form__legend">
+          {{ prop.title }}
+        </legend>
           <ul class="check-list">
             <li class="check-list__item"
-              v-for="offer in propsData" :key="offer.id"
+              v-for="(value, index) in prop.availableValues" :key="index"
             >
-              <div v-for="value in offer.offers" :key="value.id">
-                <template v-if="value.propValues && value.propValues.length">
-                  <div v-for="prop in value.propValues" :key="prop.id">
-                      <label class="check-list__label">
-                          <input
-                          class="check-list__check sr-only"
-                          type="checkbox"
-                          :value="prop.value"
-                          :checked="currentProps"
-                          v-model="currentProps"
-                          >
-                        <span class="check-list__desc">
-                          {{ prop.value }}
-                          <span>(313)</span>
-                        </span>
-                      </label>
-                  </div>
-                </template>
-              </div>
+              <label class="check-list__label">
+                  <input
+                    class="check-list__check sr-only"
+                    type="checkbox"
+                    :value="value.value"
+                    v-model="currentCategoryProps"
+                  >
+                <span class="check-list__desc">
+                  {{ value.value }}
+                  <span>{{ value.productsCount }}</span>
+                </span>
+              </label>
             </li>
           </ul>
       </fieldset>
+    </template>
 
       <button class="filter__submit button button--primery" type="submit">
         Применить
@@ -125,15 +124,13 @@ import { API_BASE_URL } from '@/config';
 export default {
   data() {
     return {
-      // currentCheckedColor: 0,
-      // currentCategoryId: 0,
+      currentCheckedColor: null,
       currentPriceFrom: null,
       currentPriceTo: null,
       categoriesData: null,
-      currentProps: [],
-
       colorsData: null,
-      productsData: null,
+      // currentCategoryId: 0,
+      filterCategoryProps: null,
     };
   },
   props: [
@@ -141,7 +138,7 @@ export default {
     'filterPriceTo',
     'filterCategoryId',
     'filterCheckedColor',
-    'filterProps',
+    'productProps',
   ],
   computed: {
     currentCategoryId: {
@@ -152,23 +149,25 @@ export default {
         this.$emit('update:filterCategoryId', value);
       },
     },
-    currentCheckedColor: {
+    currentCategoryProps: {
       get() {
-        return this.filterCheckedColor;
+        return this.productProps;
       },
       set(value) {
-        this.$emit('update:filterCheckedColor', value);
+        this.$emit('update:productProps', [value]);
       },
     },
+
     categories() {
+      this.loadCategoriesId();
       return this.categoriesData ? this.categoriesData.items : [];
     },
-    propsData() {
-      return this.productsData ? this.productsData.items : [];
+    colors() {
+      return this.colorsData ? this.colorsData.items : [];
     },
-    // colors() {
-    //   return this.colorsData ? this.colorsData.items : [];
-    // },
+    categoryProps() {
+      return this.filterCategoryProps ? this.filterCategoryProps.productProps : {};
+    },
   },
   watch: {
     filterPriceFrom(value) {
@@ -177,30 +176,29 @@ export default {
     filterPriceTo(value) {
       this.currentPriceTo = value;
     },
-    filterProps(value) {
-      this.currentProps = value;
+    filterCheckedColor(value) {
+      this.currentCheckedColor = value;
     },
-    // filterCategoryId(value) {
-    //   this.currentCategoryId = value;
-    // },
-    // filterCheckedColor(value) {
-    //   this.currentCheckedColor = value;
-    // },
+    filterProps(value) {
+      this.currentCategoryId = value;
+    },
+
+    categoryfilterProps(value) {
+      this.filterCategoryProps = value;
+    },
   },
   methods: {
     submit() {
       this.$emit('update:filterPriceFrom', this.currentPriceFrom);
       this.$emit('update:filterPriceTo', this.currentPriceTo);
-      this.$emit('update:filterProps', this.currentProps);
+      this.$emit('update:filterCheckedColor', this.currentCheckedColor);
       // this.$emit('update:filterCategoryId', this.currentCategoryId);
-      // this.$emit('update:filterCheckedColor', this.currentCheckedColor);
     },
     reset() {
-      this.$emit('update:filterPriceFrom', null);
-      this.$emit('update:filterPriceTo', null);
+      this.$emit('update:filterPriceFrom', 1);
+      this.$emit('update:filterPriceTo', 1000000);
+      this.$emit('update:filterCheckedColor', null);
       this.$emit('update:filterCategoryId', 0);
-      this.$emit('update:filterCheckedColor', 0);
-      this.$emit('update:filterProps', null);
     },
 
     loadCategories() {
@@ -216,17 +214,19 @@ export default {
         });
     },
 
-    loadProducts() {
-      axios.get(`${API_BASE_URL}/api/products`)
-        .then((response) => {
-          this.productsData = response.data;
-        });
+    loadCategoriesId() {
+      if (this.filterCategoryId > 0) {
+        axios.get(`${API_BASE_URL}/api/productCategories/${this.filterCategoryId}`)
+          .then((response) => {
+            this.filterCategoryProps = response.data;
+          });
+      }
+      this.filterCategoryProps = {};
     },
   },
   created() {
     this.loadCategories();
     this.loadColors();
-    this.loadProducts();
   },
 };
 
