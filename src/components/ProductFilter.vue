@@ -90,6 +90,7 @@
                     class="check-list__check sr-only"
                     type="checkbox"
                     :value="value.value"
+                    :name="prop.code"
                     v-model="currentCategoryProps"
                   >
                 <span class="check-list__desc">
@@ -128,9 +129,9 @@ export default {
       currentPriceFrom: null,
       currentPriceTo: null,
       categoriesData: null,
-      colorsData: null,
+      // colorsData: null,
       // currentCategoryId: 0,
-      filterCategoryProps: null,
+      filterCategoryProps: {},
     };
   },
   props: [
@@ -153,8 +154,8 @@ export default {
       get() {
         return this.productProps;
       },
-      set(value) {
-        this.$emit('update:productProps', [value]);
+      set({ name: value }) {
+        this.$emit('update:productProps', { name: value });
       },
     },
 
@@ -162,11 +163,11 @@ export default {
       this.loadCategoriesId();
       return this.categoriesData ? this.categoriesData.items : [];
     },
-    colors() {
-      return this.colorsData ? this.colorsData.items : [];
-    },
+    // colors() {
+    //   return this.colorsData ? this.colorsData.items : [];
+    // },
     categoryProps() {
-      return this.filterCategoryProps ? this.filterCategoryProps.productProps : {};
+      return this.filterCategoryProps ? this.filterCategoryProps.productProps : [];
     },
   },
   watch: {
@@ -183,7 +184,7 @@ export default {
       this.currentCategoryId = value;
     },
 
-    categoryfilterProps(value) {
+    filtercategoryProps(value) {
       this.filterCategoryProps = value;
     },
   },
@@ -207,12 +208,12 @@ export default {
           this.categoriesData = response.data;
         });
     },
-    loadColors() {
-      axios.get(`${API_BASE_URL}/api/colors`)
-        .then((response) => {
-          this.colorsData = response.data.items;
-        });
-    },
+    // loadColors() {
+    //   axios.get(`${API_BASE_URL}/api/colors`)
+    //     .then((response) => {
+    //       this.colorsData = response.data.items;
+    //     });
+    // },
 
     loadCategoriesId() {
       if (this.filterCategoryId > 0) {
@@ -226,7 +227,7 @@ export default {
   },
   created() {
     this.loadCategories();
-    this.loadColors();
+    // this.loadColors();
   },
 };
 

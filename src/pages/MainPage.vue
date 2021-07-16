@@ -76,7 +76,7 @@ export default {
         filterPriceTo: 1000000,
         filterCheckedColor: null,
         filterCategoryId: 0,
-        productProps: {},
+        productProps: [],
       },
 
       page: 1,
