@@ -3,7 +3,7 @@
     <h2 class="filter__title">Фильтры</h2>
 
     <form
-      class="filter__form form"
+      class="filter__form form js-form"
       method="get"
       @submit.prevent="submit"
     >
@@ -85,11 +85,13 @@
             <li class="check-list__item"
               v-for="(value, index) in prop.availableValues" :key="index"
             >
-              <label class="check-list__label">
+              <label class="check-list__label"
+               :class="{danger: value.productsCount === 0}"
+              >
                   <input
                     class="check-list__check sr-only"
                     type="checkbox"
-                    :value="value.value"
+                    :value="[prop.code, value.value]"
                     :name="prop.code"
                     v-model="currentCategoryProps"
                   >
@@ -126,12 +128,12 @@ export default {
   data() {
     return {
       currentCheckedColor: null,
-      currentPriceFrom: null,
-      currentPriceTo: null,
+      currentPriceFrom: 1,
+      currentPriceTo: 1000000,
       categoriesData: null,
       // colorsData: null,
       // currentCategoryId: 0,
-      filterCategoryProps: {},
+      filterCategoryProps: null,
     };
   },
   props: [
@@ -154,8 +156,8 @@ export default {
       get() {
         return this.productProps;
       },
-      set({ name: value }) {
-        this.$emit('update:productProps', { name: value });
+      set(value) {
+        this.$emit('update:productProps', value);
       },
     },
 
@@ -184,9 +186,9 @@ export default {
       this.currentCategoryId = value;
     },
 
-    filtercategoryProps(value) {
-      this.filterCategoryProps = value;
-    },
+    // filtercategoryProps(value) {
+    //   this.filterCategoryProps = value;
+    // },
   },
   methods: {
     submit() {
@@ -230,5 +232,12 @@ export default {
     // this.loadColors();
   },
 };
-
 </script>
+
+<style scoped>
+.check-list__label.danger {
+  pointer-events: none;
+  cursor: default;
+  opacity: .3;
+}
+</style>

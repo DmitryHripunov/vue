@@ -37,7 +37,9 @@
           <h2 class="error-heading">
             Пусто
           </h2>
-          <button class="error-button" @click.prevent="reset">
+          <button class="error-button"
+            @click.prevent="formReset"
+          >
             Сбросить Фильтр
           </button>
         </div>
@@ -135,6 +137,14 @@ export default {
             this.productsLoading = false;
           });
       });
+    },
+
+    formReset() {
+      this.filters.filterPriceFrom = 1,
+      this.filters.filterPriceTo = 1000000,
+      this.filters.filterCheckedColor = null,
+      this.filters.filterCategoryId = 0,
+      this.filters.productProps = []
     },
   },
   watch: {
